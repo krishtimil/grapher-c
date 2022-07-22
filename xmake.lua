@@ -5,7 +5,7 @@ add_requires("raylib")
 target("grapher-c")
     set_kind("binary")
     add_files("src/*.c")
-    --add_files("src/*.c")
+    add_headerfiles("src/*.h")
     add_packages("raylib")
 
 --
