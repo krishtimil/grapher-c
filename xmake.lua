@@ -2,11 +2,11 @@ add_rules("mode.debug", "mode.release")
 
 add_requires("raylib")
 
-target("raylib-scaffold")
+target("grapher-c")
     set_kind("binary")
-    add_files("src/*.cpp")
+    add_files("src/*.c")
+    --add_files("src/*.c")
     add_packages("raylib")
-    set_languages("c++11")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
