@@ -2,6 +2,7 @@
 #include <math.h>
 
 void draw_hyperbola(float a, float b, Color col);
+void draw_parabola1(float a, Color col);
 
 int draw_graph()
 {
@@ -46,6 +47,7 @@ int show_eq()
     DrawEllipseLines(centerX, centerY, 300.0f, 200.0f, BEIGE);
     DrawLineBezierCubic(quadstartPos, quadendPos, quadControl, quadControl2, 2.0f, GREEN);
     draw_hyperbola(1, 1, BLACK);
+    draw_parabola1(5, GREEN);
 }
 
 void draw_hyperbola(float a, float b, Color col)
@@ -71,4 +73,22 @@ void draw_hyperbola(float a, float b, Color col)
     DrawLineBezierCubic(q1, q4, q2, q3, 2.0f, col);
     DrawLineEx(q1, Eql, 2.0f, col);
     DrawLineEx(q4, Eql2, 2.0f, col);
+}
+
+void draw_parabola1(float a, Color col)
+{
+    int centerX = GetScreenWidth() - GetScreenHeight() / 2;
+    int centerY = GetScreenHeight() / 2;
+    for (float i = -10000; i < 10000; i = i + 1)
+    {
+        int x = i / 15 + centerX - 1;
+        int y = ((-a * i * i) / 4000 + centerY); // when y=-2*x^2
+        DrawPixel(x, y, col);
+    }
+    for (float i = -10000; i <= 10000; i = i + 1)
+    {
+        int x = i / 15 + centerX - 1;
+        int y = ((-a * i * i) / 4000 + centerY - 1);
+        DrawPixel(x, y, col);
+    }
 }

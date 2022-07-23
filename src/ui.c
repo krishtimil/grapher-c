@@ -18,7 +18,7 @@ int init_ui(void)
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
-
+    int i = 0;
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -26,7 +26,7 @@ int init_ui(void)
         //----------------------------------------------------------------------------------
         // NOTE: All variables update happens inside GUI control functions
         //----------------------------------------------------------------------------------
-
+        
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -36,12 +36,17 @@ int init_ui(void)
         DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
         DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
         draw_graph();
-        box_eq(0);
-        box_eq(1);
-        add_button(2);
+        show_eq();
+    
+        for(int j=0; j<i; j++)
+            box_eq(j);
+
+        if(i<8 && GuiButton((Rectangle) {15, i*70 + 20, 270, 50}, "Add Equation")){
+             i++;
+        }
         // if (drawRing) DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, Fade(MAROON, 0.3f));
 
-        DrawFPS(GetScreenWidth() - 100, 10);
+        DrawFPS(GetScreenWidth() - 100, 10); //Displays FPS on Screen
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -66,11 +71,8 @@ int box_eq(int i)
 
     // Draw GUI controls
     //------------------------------------------------------------------------------
-    showEq = GuiCheckBox((Rectangle){15, i*60 + 15 + 10, 20, 20}, "\0", showEq);
-    DrawRectangleLines(50, i*60 + 10, 235, 50, BLACK);
-    DrawText("y=mx+c", 50 + 10, i*60 + 10 + 10, 30, GREEN);
+    showEq = GuiCheckBox((Rectangle){15, i*70 + 15 + 20, 20, 20}, "\0", showEq);
+    DrawRectangleLines(50, i*70 + 20, 235, 50, BLACK);
+    DrawText("y=mx+c", 50 + 10, i*70 + 20 + 10, 30, GREEN);
 }
 
-int add_button(int i){
-    GuiButton((Rectangle) {15, i*60 + 10, 270, 50}, "Add Equation");
-}
