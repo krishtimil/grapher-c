@@ -38,8 +38,10 @@ please input: y (y/n/m)
 
   => download https://github.com/raysan5/raylib/releases/download/4.0.0/raylib-4.0.0_macos.tar.gz .. ok
   => install raylib 4.0.0 .. ok
-[ 25%]: ccache compiling.release src/main.cpp
-[ 50%]: linking.release raylib-scaffold
+[ 16%]: ccache compiling.release src/ui.c
+[ 16%]: ccache compiling.release src/main.c
+[ 16%]: ccache compiling.release src/graph.c
+[ 66%]: linking.release grapher-c
 [100%]: build ok!
 ```
 
