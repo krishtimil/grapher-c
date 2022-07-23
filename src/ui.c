@@ -26,6 +26,7 @@ int init_ui(void)
     equation_arr[0].label = "mx+y=z";
     equation_arr[0].col = GREEN;
     equation_arr[0].show = false;
+    equation_arr[0].type = "quadratic_x";
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -69,7 +70,7 @@ int box_eq(int i)
 
     if (showEq)
     {
-        show_eq();
+        show_eq(equation_arr[i].type,1, -5,6,0, equation_arr[i].col);
     }
 
     // Draw GUI controls
