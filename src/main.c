@@ -4,7 +4,6 @@
 #include "raygui.h" // Required for GUI controls
 #include "equation.h"
 #include "graph.h"
-#include "uichooser.h"
 
 Equation equation_arr[8];
 //------------------------------------------------------------------------------------
