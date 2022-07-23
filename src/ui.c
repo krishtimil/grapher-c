@@ -25,8 +25,7 @@ int init_ui(void)
     // For testing purposes
     equation_arr[0].label = "mx+y=z";
     equation_arr[0].col = GREEN;
-    equation_arr[0].show = true;
-    
+    equation_arr[0].show = false;
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -41,7 +40,6 @@ int init_ui(void)
         DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
         DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
         draw_graph();
-        show_eq();
 
         for (int j = 0; j < i; j++)
             box_eq(j);
@@ -50,7 +48,6 @@ int init_ui(void)
         {
             i++;
         }
-        // if (drawRing) DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, Fade(MAROON, 0.3f));
 
         DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
