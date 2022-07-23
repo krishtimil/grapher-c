@@ -43,14 +43,21 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 		quadratic_y(a, b, c, col);
 	if (!strcmp(type, "sine"))
 		draw_sine(a, b, c, col);
+	if (!strcmp(type, "cos"))
+		draw_sine(a, b, c + M_PI_2 , col);
 	if (!strcmp(type, "tan"))
 		draw_tan(a, b, c, col);
 	if (!strcmp(type, "hyperbola"))
 		hyperbola(a, b, col);
 	if (!strcmp(type, "ellipse"))
 		ellipse(a, b, col);
-
-
+	if (!strcmp(type, "cubic_x"))
+		cubic_x(a,b,c,d,col);
+	if (!strcmp(type, "cubic_y"))
+		cubic_y(a,b,c,d,col);
+	if (!strcmp(type, "ellipse"))
+		ellipse(a,b,col);
+	
 }
 
 

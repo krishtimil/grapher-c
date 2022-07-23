@@ -2,7 +2,8 @@
 #define UI_H
 #include "raylib.h"
 
-typedef struct Equation{
+typedef struct Equation
+{
     char *label;
     Color col;
     char *type;
@@ -12,5 +13,7 @@ typedef struct Equation{
     int c;
     int d;
 } Equation;
+
+extern Equation equation_arr[8];
 
 #endif
