@@ -15,7 +15,7 @@ int init_ui(void)
     const int screenWidth = 900;
     const int screenHeight = 600;
     InitWindow(screenWidth, screenHeight, "Grapher-C");
-    Font fontm = LoadFontEx("resources/Monospace.ttf", 32, 0, 250);
+    Font fontm = LoadFontEx("./res/euler.otf", 32, 0, 250);
     bool showEq = true;
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
