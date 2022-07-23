@@ -1,14 +1,11 @@
 #include "raylib.h"
 
+
+
 int draw_graph()
 {
-    const int screenSize = 500;
-    const int centerX = screenSize / 2;
-    const int centerY = screenSize / 2;
-    Vector2 quadstartPos = {centerX + 400, centerY + 500};
-    Vector2 quadendPos = {centerX + 400, centerY - 500};
-    Vector2 quadControl = {centerX - 400, centerY};
-    Vector2 quadControl2 = {centerX + 400, centerY + 500};
+    int centerX = GetScreenWidth() - GetScreenHeight()/2;
+    int centerY = GetScreenHeight()/2;
 
     // Line testing
     Vector3 start = {0.0f, 0.0f, 0.0f};
@@ -23,12 +20,27 @@ int draw_graph()
     // Making graph grid line
     BeginMode3D(camera);
     DrawGrid(50, 0.5f);
-    DrawLine3D(start, end, PURPLE);
     EndMode3D();
     // Marking the origin
     DrawText("O", centerX, centerY, 2.0f, MAROON);
     // For Quadratic Equation
+    
+}
+
+int show_eq(){
+    int centerX = (GetScreenWidth() - GetScreenHeight())/2;
+    int centerY = GetScreenHeight()/2;
+
+    Vector2 quadstartPos = {centerX + 400, centerY + 500};
+    Vector2 quadendPos = {centerX + 400, centerY - 500};
+    Vector2 quadControl = {centerX - 400, centerY};
+    Vector2 quadControl2 = {centerX + 400, centerY + 500};
+
+    Vector3 start = {0.0f, 0.0f, 0.0f};
+    Vector3 end = {10.0f, 10.0f, 10.0f};
+    DrawLine3D(start, end, PURPLE);
     DrawLineBezierQuad(quadstartPos, quadendPos, quadControl, 2.0f, BLUE);
+   
     // Drawing Ellipse
     DrawEllipseLines(centerX, centerY, 300.0f, 200.0f, BEIGE);
     DrawLineBezierCubic(quadstartPos, quadendPos, quadControl, quadControl2, 2.0f, YELLOW);

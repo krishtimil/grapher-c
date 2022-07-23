@@ -37,11 +37,11 @@ int init_ui(void)
 
         DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
         DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
-
+        draw_graph();
         // if (drawRing) DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, Fade(MAROON, 0.3f));
         if (showEq)
         {
-            draw_graph();
+            show_eq();
         }
 
         DrawTextEx(fontm, "y=mx+c", (Vector2){ 20.0f, 100.0f }, 20, 2, LIME);
