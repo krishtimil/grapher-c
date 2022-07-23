@@ -15,8 +15,6 @@ int init_ui(void)
     const int screenWidth = 900;
     const int screenHeight = 600;
     InitWindow(screenWidth, screenHeight, "Grapher-C");
-    Font fontm = LoadFontEx("./res/euler.otf", 32, 0, 250);
-    bool showEq = true;
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -38,17 +36,10 @@ int init_ui(void)
         DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
         DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
         draw_graph();
+        box_eq(0);
+        box_eq(1);
+        add_button(2);
         // if (drawRing) DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, Fade(MAROON, 0.3f));
-        if (showEq)
-        {
-            show_eq();
-        }
-
-        DrawTextEx(fontm, "y=mx+c", (Vector2){ 20.0f, 100.0f }, 20, 2, LIME);
-        // Draw GUI controls
-        //------------------------------------------------------------------------------
-        showEq = GuiCheckBox((Rectangle){15, 15 + 10, 20, 20}, "\0", showEq);
-        GuiLabel((Rectangle) {50, 10, 300-15, 50}, "y=mx+c");
 
         DrawFPS(GetScreenWidth() - 100, 10);
 
@@ -58,9 +49,28 @@ int init_ui(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadFont(fontm);
     CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
+}
+
+int box_eq(int i)
+{
+    bool showEq = true;
+
+    if (showEq)
+    {
+        show_eq();
+    }
+
+    // Draw GUI controls
+    //------------------------------------------------------------------------------
+    showEq = GuiCheckBox((Rectangle){15, i*60 + 15 + 10, 20, 20}, "\0", showEq);
+    DrawRectangleLines(50, i*60 + 10, 235, 50, BLACK);
+    DrawText("y=mx+c", 50 + 10, i*60 + 10 + 10, 30, GREEN);
+}
+
+int add_button(int i){
+    GuiButton((Rectangle) {15, i*60 + 10, 270, 50}, "Add Equation");
 }
