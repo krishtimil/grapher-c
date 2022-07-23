@@ -6,6 +6,7 @@ typedef struct Equation{
     char *label;
     Color col;
     char *type;
+    bool show;
 } Equation;
 
 #endif

@@ -3,6 +3,7 @@
 
 void draw_hyperbola(float a, float b, Color col);
 void draw_parabola1(float a, Color col);
+void draw_quadratic(float a, float b, float c, Color col);
 
 int draw_graph()
 {
@@ -48,6 +49,7 @@ int show_eq()
     DrawLineBezierCubic(quadstartPos, quadendPos, quadControl, quadControl2, 2.0f, GREEN);
     draw_hyperbola(1, 1, BLACK);
     draw_parabola1(5, GREEN);
+    draw_quadratic(1,-5,6,VIOLET);
 }
 
 void draw_hyperbola(float a, float b, Color col)
@@ -89,6 +91,24 @@ void draw_parabola1(float a, Color col)
     {
         int x = i / 15 + centerX - 1;
         int y = ((-a * i * i) / 4000 + centerY - 1);
+        DrawPixel(x, y, col);
+    }
+}
+
+void draw_quadratic(float a, float b, float c, Color col)
+{
+    int centerX = GetScreenWidth() - GetScreenHeight() / 2;
+    int centerY = GetScreenHeight() / 2;
+    for (float i = -10000; i < 10000; i = i + 1)
+    {
+        int x = i / 15 + centerX - 1;
+        int y = ((-a * i * i - b * i * 230 - c) / 3500 + centerY - c * 15);
+        DrawPixel(x, y, col);
+    }
+    for (float i = -10000; i <= 10000; i = i + 1)
+    {
+        int x = i / 15 + centerX - 1;
+        int y = ((-a * i * i - b * i * 230 - c) / 3500 + centerY - 1 - c * 15);
         DrawPixel(x, y, col);
     }
 }

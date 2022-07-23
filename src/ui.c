@@ -25,6 +25,8 @@ int init_ui(void)
     // For testing purposes
     equation_arr[0].label = "mx+y=z";
     equation_arr[0].col = GREEN;
+    equation_arr[0].show = true;
+    
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -66,7 +68,7 @@ int init_ui(void)
 
 int box_eq(int i)
 {
-    bool showEq = true;
+    bool showEq = equation_arr[i].show;
 
     if (showEq)
     {
@@ -75,7 +77,7 @@ int box_eq(int i)
 
     // Draw GUI controls
     //------------------------------------------------------------------------------
-    showEq = GuiCheckBox((Rectangle){15, i * 70 + 15 + 20, 20, 20}, "\0", showEq);
+    equation_arr[i].show = GuiCheckBox((Rectangle){15, i * 70 + 15 + 20, 20, 20}, "\0", equation_arr[i].show);
     DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
     DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
