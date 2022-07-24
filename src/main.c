@@ -65,7 +65,7 @@ int main(void)
 		if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
 		{
 			window_Active = true;
-			// i++;
+			//num_eq++;
 		}
 
 		if (window_Active)
