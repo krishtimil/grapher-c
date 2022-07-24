@@ -72,7 +72,6 @@ int main(void)
 		{
 			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
 			draw_window_buttons();
-			//i++;
 		}
 
 		draw_2ndwin();
