@@ -47,3 +47,9 @@ int draw_2ndwin()
         }
     }
 }
+
+int win2nd_buttons()
+{
+    
+}
+

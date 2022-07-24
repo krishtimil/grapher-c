@@ -75,7 +75,7 @@ int main(void)
 		}
 
 		draw_2ndwin();
-
+		//GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
 		EndDrawing();
