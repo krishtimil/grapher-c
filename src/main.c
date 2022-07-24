@@ -54,9 +54,9 @@ int main(void)
 
 	bool window_Active = false;
 	bool window_poly = false;
-	bool button_conic = false;
-	bool button_trig = false;
-	bool button_exp = false;
+	bool window_conic = false;
+	bool window_trig = false;
+	bool window_exp = false;
 
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -78,6 +78,7 @@ int main(void)
 		if (i < 8 && GuiButton((Rectangle){15, i * 70 + 20, 270, 50}, "Add Equation"))
 		{
 			window_Active = true;
+			//i++;
 		}
 
 		if (window_Active)
@@ -85,13 +86,29 @@ int main(void)
 			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
 			if(GuiButton((Rectangle){165, 0 * 70 + 90, 270, 50}, "Polynomial"))
 				window_poly = true;
-			button_conic = GuiButton((Rectangle){165, 1 * 70 + 90, 270, 50}, "Conic Section");
-			button_trig = GuiButton((Rectangle){165, 2 * 70 + 90, 270, 50}, "Trigonometric");
-			button_exp = GuiButton((Rectangle){165, 3 * 70 + 90, 270, 50}, "Exponential");
+			if(GuiButton((Rectangle){165, 1 * 70 + 90, 270, 50}, "Conic Section"))
+				window_conic = true;
+			if(GuiButton((Rectangle){165, 2 * 70 + 90, 270, 50}, "Trigonometric"))
+				window_trig = true;
+			if(GuiButton((Rectangle){165, 3 * 70 + 90, 270, 50}, "Exponential"))
+				window_exp = true;
 		}
 
 		if(window_poly){
 			window_poly = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Polynomial");
+			//
+		}
+		if(window_conic){
+			window_conic = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Conic");
+			//
+		}
+		if(window_trig){
+			window_trig = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Trigonometry");
+			//
+		}
+		if(window_exp){
+			window_exp = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Exponential");
+			//
 		}
 
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
@@ -114,7 +131,7 @@ int box_eq(int i)
 
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type, 2, 5, 6, 0, equation_arr[i].col);
+		show_eq(equation_arr[i].type, 1, 1, 0, 0, equation_arr[i].col);
 	}
 
 	// Draw GUI controls

@@ -2,6 +2,8 @@
 #include <math.h>
 #include <string.h>
 
+#define PI_2 1.57079
+
 void hyperbola(float a, float b, Color col);
 void ellipse(float a, float b, Color col);
 void cubic_y(float a, float b, float c, float d, Color col);
@@ -44,7 +46,7 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 	if (!strcmp(type, "sine"))
 		draw_sine(a, b, c, col);
 	if (!strcmp(type, "cos"))
-		draw_sine(a, b, c + M_PI_2 , col);
+		draw_sine(a, b, c + PI_2 , col);
 	if (!strcmp(type, "tan"))
 		draw_tan(a, b, c, col);
 	if (!strcmp(type, "hyperbola"))
@@ -57,7 +59,8 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 		cubic_y(a,b,c,d,col);
 	if (!strcmp(type, "ellipse"))
 		ellipse(a,b,col);
-	
+	// line ko lagi
+	// log (base a) x ko lagi
 }
 
 
