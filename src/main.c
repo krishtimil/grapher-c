@@ -2,24 +2,21 @@
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h" // Required for GUI controls
-#include "equation.h"
+
+//custom header files
+#include "structures.h"
+#include "ui.h"
 #include "graph.h"
 
+//initialize array of euqations
 Equation equation_arr[8];
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
+
 int main(void)
 {
-	// Initialization
-	//--------------------------------------------------------------------------------------
-	const int screenWidth = 900;
-	const int screenHeight = 600;
-	InitWindow(screenWidth, screenHeight, "Grapher-C");
-
-	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
-	//--------------------------------------------------------------------------------------
-	int i = 0;
+	//init window
+	init_window();
+	//no of equations
+	int num_eq = 0;
 
 	// For testing purposes
 	equation_arr[0].label = "mx+y=z";
@@ -53,63 +50,32 @@ int main(void)
 	equation_arr[5].type = "ellipse";
 
 	bool window_Active = false;
-	bool window_poly = false;
-	bool window_conic = false;
-	bool window_trig = false;
-	bool window_exp = false;
-
+	
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
 	{
-
-		// Draw
-		//----------------------------------------------------------------------------------
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
-
-		DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
-		DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
-		draw_graph();
-
-		for (int j = 0; j < i; j++)
+		//Draws sections of main window
+		draw_sections();
+		// initialize euqations box num_eq times
+		for (int j = 0; j < num_eq; j++)
 			box_eq(j);
 
-		if (i < 8 && GuiButton((Rectangle){15, i * 70 + 20, 270, 50}, "Add Equation"))
+		if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
 		{
 			window_Active = true;
-			//i++;
+			// i++;
 		}
 
 		if (window_Active)
 		{
 			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
-			if(GuiButton((Rectangle){165, 0 * 70 + 90, 270, 50}, "Polynomial"))
-				window_poly = true;
-			if(GuiButton((Rectangle){165, 1 * 70 + 90, 270, 50}, "Conic Section"))
-				window_conic = true;
-			if(GuiButton((Rectangle){165, 2 * 70 + 90, 270, 50}, "Trigonometric"))
-				window_trig = true;
-			if(GuiButton((Rectangle){165, 3 * 70 + 90, 270, 50}, "Exponential"))
-				window_exp = true;
+			draw_window_buttons();
+			
 		}
 
-		if(window_poly){
-			window_poly = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Polynomial");
-			//
-		}
-		if(window_conic){
-			window_conic = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Conic");
-			//
-		}
-		if(window_trig){
-			window_trig = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Trigonometry");
-			//
-		}
-		if(window_exp){
-			window_exp = !GuiWindowBox((Rectangle){200, 100, 300, 320}, "Exponential");
-			//
-		}
+		draw_2ndwin();
 
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
@@ -117,10 +83,7 @@ int main(void)
 		//----------------------------------------------------------------------------------
 	}
 
-	// De-Initialization
-	//--------------------------------------------------------------------------------------
 	CloseWindow(); // Close window and OpenGL context
-	//--------------------------------------------------------------------------------------
 
 	return 0;
 }
@@ -140,3 +103,5 @@ int box_eq(int i)
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
 	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
+
+

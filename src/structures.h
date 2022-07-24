@@ -16,4 +16,11 @@ typedef struct Equation
 
 extern Equation equation_arr[8];
 
+typedef struct Window
+{
+    bool show;
+    char *label;
+} Window;
+
+
 #endif
