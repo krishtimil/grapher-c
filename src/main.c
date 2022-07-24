@@ -3,19 +3,19 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h" // Required for GUI controls
 
-//custom header files
+// custom header files
 #include "structures.h"
 #include "ui.h"
 #include "graph.h"
 
-//initialize array of euqations
+// initialize array of euqations
 Equation equation_arr[8];
 
 int main(void)
 {
-	//init window
+	// init window
 	init_window();
-	//no of equations
+	// no of equations
 	int num_eq = 0;
 
 	// For testing purposes
@@ -50,13 +50,13 @@ int main(void)
 	equation_arr[5].type = "ellipse";
 
 	bool window_Active = false;
-	
+
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
 	{
 		BeginDrawing();
 
-		//Draws sections of main window
+		// Draws sections of main window
 		draw_sections();
 		// initialize euqations box num_eq times
 		for (int j = 0; j < num_eq; j++)
@@ -72,7 +72,6 @@ int main(void)
 		{
 			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
 			draw_window_buttons();
-			
 		}
 
 		draw_2ndwin();
@@ -103,5 +102,3 @@ int box_eq(int i)
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
 	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
-
-

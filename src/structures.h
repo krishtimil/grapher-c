@@ -1,5 +1,5 @@
-#ifndef UI_H
-#define UI_H
+#ifndef STRUCTURE_H
+#define STRUCTURE_H
 #include "raylib.h"
 
 typedef struct Equation
@@ -21,6 +21,5 @@ typedef struct Window
     bool show;
     char *label;
 } Window;
-
 
 #endif

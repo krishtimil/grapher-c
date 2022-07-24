@@ -19,14 +19,14 @@ int draw_graph()
 	int centerY = GetScreenHeight() / 2;
 
 	// Line testing
-	Vector3 start = { 0.0f, 0.0f, 0.0f };
-	Vector3 end = { 10.0f, 10.0f, 10.0f };
+	Vector3 start = {0.0f, 0.0f, 0.0f};
+	Vector3 end = {10.0f, 10.0f, 10.0f};
 
-	Camera3D camera = { 0 };
-	camera.position = (Vector3){ 5.0f, 10.0f, 0.0f }; // Camera position
-	camera.target = (Vector3){ 5.0f, 0.0f, 0.0f };    // Camera looking at point
-	camera.up = (Vector3){ 0.0f, 0.0f, 10.0f };       // Camera up vector (rotation towards target)
-	camera.fovy = 90.0f;                            // Camera field-of-view Y
+	Camera3D camera = {0};
+	camera.position = (Vector3){5.0f, 10.0f, 0.0f}; // Camera position
+	camera.target = (Vector3){5.0f, 0.0f, 0.0f};	// Camera looking at point
+	camera.up = (Vector3){0.0f, 0.0f, 10.0f};		// Camera up vector (rotation towards target)
+	camera.fovy = 90.0f;							// Camera field-of-view Y
 	camera.projection = CAMERA_PERSPECTIVE;
 	// Making graph grid line
 	BeginMode3D(camera);
@@ -36,9 +36,9 @@ int draw_graph()
 	DrawText("O", centerX, centerY, 2.0f, MAROON);
 }
 
-int show_eq(char* type, int a, int b, int c, int d, Color col)
+int show_eq(char *type, int a, int b, int c, int d, Color col)
 {
-	//type = tolower(type);
+	// type = tolower(type);
 	if (!strcmp(type, "quadratic_x"))
 		quadratic_x(a, b, c, col);
 	if (!strcmp(type, "quadratic_y"))
@@ -46,7 +46,7 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 	if (!strcmp(type, "sine"))
 		draw_sine(a, b, c, col);
 	if (!strcmp(type, "cos"))
-		draw_sine(a, b, c + PI_2 , col);
+		draw_sine(a, b, c + PI_2, col);
 	if (!strcmp(type, "tan"))
 		draw_tan(a, b, c, col);
 	if (!strcmp(type, "hyperbola"))
@@ -54,15 +54,14 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 	if (!strcmp(type, "ellipse"))
 		ellipse(a, b, col);
 	if (!strcmp(type, "cubic_x"))
-		cubic_x(a,b,c,d,col);
+		cubic_x(a, b, c, d, col);
 	if (!strcmp(type, "cubic_y"))
-		cubic_y(a,b,c,d,col);
+		cubic_y(a, b, c, d, col);
 	if (!strcmp(type, "ellipse"))
-		ellipse(a,b,col);
+		ellipse(a, b, col);
 	// line ko lagi
 	// log (base a) x ko lagi
 }
-
 
 void ellipse(float a, float b, Color col)
 {
@@ -75,22 +74,22 @@ void hyperbola(float a, float b, Color col)
 {
 	int centerX = GetScreenWidth() - GetScreenHeight() / 2;
 	int centerY = GetScreenHeight() / 2;
-	Vector2 P1 = { centerX + 30 * a * 2, centerY + 30 * b * sqrt(3) };
-	Vector2 P2 = { centerX + 2 / 3 * 30 * a, centerY + 30 * b * (48 - 26 * sqrt(3)) / 18 };
-	Vector2 P3 = { centerX + 2 / 3 * 30 * a, centerY - 30 * b * (48 - 26 * sqrt(3)) / 18 };
-	Vector2 P4 = { centerX + 30 * 2 * a, centerY - 30 * b * sqrt(3) };
-	Vector2 El = { centerX + 20 * 15, centerY + 20 * (b / a) * 13 };
-	Vector2 El2 = { centerX + 20 * 15, centerY - 20 * (b / a) * 13 };
+	Vector2 P1 = {centerX + 30 * a * 2, centerY + 30 * b * sqrt(3)};
+	Vector2 P2 = {centerX + 2 / 3 * 30 * a, centerY + 30 * b * (48 - 26 * sqrt(3)) / 18};
+	Vector2 P3 = {centerX + 2 / 3 * 30 * a, centerY - 30 * b * (48 - 26 * sqrt(3)) / 18};
+	Vector2 P4 = {centerX + 30 * 2 * a, centerY - 30 * b * sqrt(3)};
+	Vector2 El = {centerX + 20 * 15, centerY + 20 * (b / a) * 13};
+	Vector2 El2 = {centerX + 20 * 15, centerY - 20 * (b / a) * 13};
 	DrawLineBezierCubic(P1, P4, P2, P3, 2.0f, col);
 	DrawLineEx(P1, El, 2.0f, col);
 	DrawLineEx(P4, El2, 2.0f, col);
 
-	Vector2 q1 = { centerX - 30 * a * 2, centerY + 30 * b * sqrt(3) };
-	Vector2 q2 = { centerX - 2 / 3 * 30 * a, centerY + 30 * b * (48 - 26 * sqrt(3)) / 18 };
-	Vector2 q3 = { centerX - 2 / 3 * 30 * a, centerY - 30 * b * (48 - 26 * sqrt(3)) / 18 };
-	Vector2 q4 = { centerX - 30 * 2 * a, centerY - 30 * b * sqrt(3) };
-	Vector2 Eql = { centerX - 20 * 15, centerY + 20 * (b / a) * 13 };
-	Vector2 Eql2 = { centerX - 20 * 15, centerY - 20 * (b / a) * 13 };
+	Vector2 q1 = {centerX - 30 * a * 2, centerY + 30 * b * sqrt(3)};
+	Vector2 q2 = {centerX - 2 / 3 * 30 * a, centerY + 30 * b * (48 - 26 * sqrt(3)) / 18};
+	Vector2 q3 = {centerX - 2 / 3 * 30 * a, centerY - 30 * b * (48 - 26 * sqrt(3)) / 18};
+	Vector2 q4 = {centerX - 30 * 2 * a, centerY - 30 * b * sqrt(3)};
+	Vector2 Eql = {centerX - 20 * 15, centerY + 20 * (b / a) * 13};
+	Vector2 Eql2 = {centerX - 20 * 15, centerY - 20 * (b / a) * 13};
 	DrawLineBezierCubic(q1, q4, q2, q3, 2.0f, col);
 	DrawLineEx(q1, Eql, 2.0f, col);
 	DrawLineEx(q4, Eql2, 2.0f, col);
@@ -167,7 +166,6 @@ void quadratic_x(float a, float b, float c, Color col)
 	}
 }
 
-
 void draw_sine(float a, float b, float c, Color col)
 {
 	int centerX = GetScreenWidth() - GetScreenHeight() / 2;
@@ -176,11 +174,10 @@ void draw_sine(float a, float b, float c, Color col)
 	{
 		int x = i / 5;
 		int y = -a * 15 * sin((b * i) / 75);
-		if (x + centerX - c * 15 >= 300) {
+		if (x + centerX - c * 15 >= 300)
+		{
 			DrawPixel(x + centerX - c * 15, y + centerY - 1, col);
-
 		}
-
 	}
 }
 
@@ -193,19 +190,16 @@ void draw_tan(float a, float b, float c, Color col)
 		int x1, y1;
 		int x = i / 5;
 		int y = -a * 15 * tan((b * i) / 75);
-		if (x + centerX - c * 15 >= 300) {
+		if (x + centerX - c * 15 >= 300)
+		{
 			DrawPixel(x + centerX - c * 15, y + centerY - 1, col);
-			//if(i>=-1000)
+			// if(i>=-1000)
 			DrawLine(x1 + centerX - c * 15, y1 + centerY - 1, x + centerX - c * 15, y + centerY - 1, col);
-			//DrawLine(x2+centerX-c*15,y2+centerY-1,x+centerX-c*15,y+centerY-1,col);
-			//int x2=x1;
-			//int y2=y1;
-
+			// DrawLine(x2+centerX-c*15,y2+centerY-1,x+centerX-c*15,y+centerY-1,col);
+			// int x2=x1;
+			// int y2=y1;
 		}
 		x1 = x;
 		y1 = y;
-
-
 	}
 }
-
