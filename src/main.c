@@ -99,6 +99,7 @@ int main(void)
 	return 0;
 }
 
+<<<<<<< HEAD
 int box_eq(int i)
 {
 	bool showEq = equation_arr[i].show;
@@ -114,3 +115,5 @@ int box_eq(int i)
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
 	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
+=======
+>>>>>>> origin

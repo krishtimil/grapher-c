@@ -5,10 +5,10 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[5] = {{false, "Polynomial"},
-                     {false, "Conic Section"},
-                     {false, "Trigonometric"},
-                     {false, "Exponential"}};
+Window windows[4] = {{false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
+                     {false, "Conic Section", 4, {"Ellipse", "Parabola", "Hyperbola", "Circle"}},
+                     {false, "Trigonometric", 3, {"Sin", "Cos", "Tan"}},
+                     {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}}};
 
 int init_window()
 {
@@ -33,7 +33,16 @@ int draw_window_buttons()
     for (int i = 0; i < 4; i++)
     {
         if (GuiButton((Rectangle){165, i * 70 + 90, 270, 50}, windows[i].label))
+        {
             windows[i].show = true;
+
+            // to prevent duplication of windows
+            // for (int j = 0; j < 4; j++)
+            // {
+            //     if (i != j)
+            //         windows[i].show = false;
+            // }
+        }
     }
 }
 
@@ -43,13 +52,33 @@ int draw_2ndwin()
     {
         if (windows[i].show)
         {
-            windows[i].show = !GuiWindowBox((Rectangle){200, 100, 300, 320}, windows[i].label);
+            windows[i].show = !GuiWindowBox((Rectangle){200, 100, 300, 70 * windows[i].typelen + 40}, windows[i].label);
+            win2nd_buttons(i);
         }
     }
 }
 
-int win2nd_buttons()
+int win2nd_buttons(int i)
 {
-    
+    for (int j = 0; j < windows[i].typelen; j++)
+    {
+        GuiButton((Rectangle){215, j * 70 + 140, 270, 50}, windows[i].types[j]);
+    }
+}
+
+int box_eq(int i)
+{
+	bool showEq = equation_arr[i].show;
+
+	if (showEq)
+	{
+		show_eq(equation_arr[i].type, 1, 1, 0, 0, equation_arr[i].col);
+	}
+
+	// Draw GUI controls
+	//------------------------------------------------------------------------------
+	equation_arr[i].show = GuiCheckBox((Rectangle){15, i * 70 + 15 + 20, 20, 20}, "\0", equation_arr[i].show);
+	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
+	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
 

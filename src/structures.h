@@ -20,6 +20,7 @@ typedef struct Window
 {
     bool show;
     char *label;
+    int typelen;
     char *types[5];
 } Window;
 
