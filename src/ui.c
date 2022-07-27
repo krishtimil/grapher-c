@@ -5,30 +5,30 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[4] = {{false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
-                     {false, "Conic Section", 4, {"Ellipse", "Parabola", "Hyperbola", "Circle"}},
-                     {false, "Trigonometric", 3, {"Sin", "Cos", "Tan"}},
-                     {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}}};
+Window windows[4] = { {false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
+					 {false, "Conic Section", 4, {"Ellipse", "Parabola", "Hyperbola", "Circle"}},
+					 {false, "Trigonometric", 3, {"Sin", "Cos", "Tan"}},
+					 {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}} };
 
 int init_window()
 {
-    const int screenWidth = 900;
-    const int screenHeight = 600;
-    InitWindow(screenWidth, screenHeight, "Grapher-C");
-    SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
+	const int screenWidth = 900;
+	const int screenHeight = 600;
+	InitWindow(screenWidth, screenHeight, "Grapher-C");
+	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
 }
 
 int draw_sections()
 {
-    ClearBackground(RAYWHITE);
-    DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
-    DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
-    draw_graph();
+	ClearBackground(RAYWHITE);
+	DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
+	DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
+	draw_graph();
 }
 
 int draw_window_buttons()
 {
-    // loop for individual buttons
+	// loop for individual buttons
 
     for (int i = 0; i < 4; i++)
     {

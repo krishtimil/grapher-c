@@ -74,7 +74,21 @@ void draw_log(float a, Color col) {
 	if (a > 0 && a != 1) {
 		float x1, y1, x2, y2;
 		int j = 0;
+
+		x1 = 0.0001 * 15;
+		y1 = 600;
+		x2 = 0.001 * 15;
+		y2 = ((float)log(0.001) / (float)log(a)) * 15;
+
+
+		DrawLineEx((Vector2) { centerX + x1, y1 }, (Vector2) {
+			centerX + x2, centerY - y2
+		}, 2.0f, col);
+
+		// for range 0 to 1
+
 		for (float i = 0.001; i < 1; i += 0.001, j++) {
+
 			if (j % 2 == 0) {
 				x1 = i;
 				y1 = ((float)log(i) / (float)log(a));
@@ -83,14 +97,10 @@ void draw_log(float a, Color col) {
 				x2 = i;
 				y2 = ((float)log(i) / (float)log(a));
 			}
-			if (x1 == 0 && y1 == 0 || x2 == 0 && y2 == 0) {
-				continue;
-			}
-			else {
-				DrawLineEx((Vector2) { centerX + x1 * 15, centerY - y1 * 15 }, (Vector2) { centerX + x2 * 15, centerY - y2 * 15 }, 2.0f, col);
-			}
+			DrawLineEx((Vector2) { centerX + x1 * 15, centerY - y1 * 15 }, (Vector2) { centerX + x2 * 15, centerY - y2 * 15 }, 2.0f, col);
 		}
 
+		// for range 1 to 20
 		for (int i = 1; i <= 20; i += 1) {
 			if (i % 2 == 0) {
 				x1 = i;
@@ -100,13 +110,7 @@ void draw_log(float a, Color col) {
 				x2 = i;
 				y2 = ((float)log(i) / (float)log(a));
 			}
-			if (x1 == 0 && y1 == 0 || x2 == 0 && y2 == 0) {
-				continue;
-			}
-			else {
-
-				DrawLineEx((Vector2) { centerX + x1 * 15, centerY - y1 * 15 }, (Vector2) { centerX + x2 * 15, centerY - y2 * 15 }, 2.0f, col);
-			}
+			DrawLineEx((Vector2) { centerX + x1 * 15, centerY - y1 * 15 }, (Vector2) { centerX + x2 * 15, centerY - y2 * 15 }, 2.0f, col);
 		}
 	}
 
