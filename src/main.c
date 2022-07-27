@@ -59,8 +59,6 @@ int main(void)
 	equation_arr[7].show = false;
 	equation_arr[7].type = "log";
 
-
-
 	bool window_Active = false;
 
 	// Main game loop
@@ -77,16 +75,16 @@ int main(void)
 		if (num_eq < 8 && GuiButton((Rectangle) { 15, num_eq * 70 + 20, 270, 50 }, "Add Equation"))
 		{
 			window_Active = true;
-			num_eq++;
+			//num_eq++;
 		}
 
 		if (window_Active)
 		{
 			window_Active = !GuiWindowBox((Rectangle) { 150, 50, 300, 320 }, "Add Equation");
-			//draw_window_buttons();
+			draw_window_buttons();
 		}
 
-		//draw_2ndwin();
+		draw_2ndwin();
 		//GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
@@ -99,21 +97,4 @@ int main(void)
 	return 0;
 }
 
-<<<<<<< HEAD
-int box_eq(int i)
-{
-	bool showEq = equation_arr[i].show;
 
-	if (showEq)
-	{
-		show_eq(equation_arr[i].type, 3, 2, 0, 0, equation_arr[i].col);
-	}
-
-	// Draw GUI controls
-	//------------------------------------------------------------------------------
-	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
-	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
-	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
-}
-=======
->>>>>>> origin
