@@ -72,20 +72,21 @@ int main(void)
 		for (int j = 0; j < num_eq; j++)
 			box_eq(j);
 
-		if (num_eq < 8 && GuiButton((Rectangle) { 15, num_eq * 70 + 20, 270, 50 }, "Add Equation"))
+		if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
 		{
 			window_Active = true;
-			//num_eq++;
+			// num_eq++;
 		}
 
 		if (window_Active)
 		{
-			window_Active = !GuiWindowBox((Rectangle) { 150, 50, 300, 320 }, "Add Equation");
+			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
 			draw_window_buttons();
+			
 		}
 
 		draw_2ndwin();
-		//GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
+		// GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
 		EndDrawing();
@@ -96,5 +97,3 @@ int main(void)
 
 	return 0;
 }
-
-
