@@ -16,12 +16,18 @@ typedef struct Equation
 
 extern Equation equation_arr[8];
 
+typedef struct Type {
+    bool show;
+	char *label;
+    int var_num;
+}Type;
+
 typedef struct Window
 {
     bool show;
     char *label;
     int typelen;
-    char *types[5];
+    Type types[5];
 } Window;
 
 #endif

@@ -70,9 +70,10 @@ int main(void)
 		draw_boxes();
 
 		//custon functions to draw windows
-		draw_1stwin();
-		draw_2ndwin();
-		// GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
+		window_add();
+		window_type();
+		window_input();
+		
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
 		EndDrawing();

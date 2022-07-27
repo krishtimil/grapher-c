@@ -5,10 +5,14 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[4] = {{false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
-					 {false, "Conic Section", 4, {"Ellipse", "Parabola", "Hyperbola", "Circle"}},
-					 {false, "Trigonometric", 3, {"Sin", "Cos", "Tan"}},
-					 {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}}};
+Window windows[4] = { {false, "Polynomial", 5, {
+	{false, "Linear", 2}, {false, "Quadratic in X", 3},{false,  "Quadratic in Y",3}, {false, "Cubic in X",4},{false,  "Cubic in Y",4}}},
+					 {false, "Conic Section", 4, {
+		{false, "Ellipse",2}, {false, "Parabola",1}, {false, "Hyperbola",2}, {false, "Circle",1}}},
+					 {false, "Trigonometric", 3, {
+		{false, "Sin",3}, {false, "Cos",3}, {false, "Tan",3}}},
+					 {false, "Exponential", 3, {
+		{false, "e^(ax)",1}, {false, "a^x",1}, {false, "log(base a)x",1}}} };
 // no of equations
 int num_eq = 0;
 bool window_Active = false;
@@ -29,14 +33,14 @@ int draw_sections()
 	draw_graph();
 }
 
-int draw_boxes(){
-	for(int i=0; i< num_eq; i++)
+int draw_boxes() {
+	for (int i = 0; i < num_eq; i++)
 		box_eq(i);
 }
 
-int draw_1stwin()
+int window_add()
 {
-	if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
+	if (num_eq < 8 && GuiButton((Rectangle) { 15, num_eq * 70 + 20, 270, 50 }, "Add Equation"))
 	{
 		window_Active = true;
 		// num_eq++;
@@ -44,46 +48,58 @@ int draw_1stwin()
 
 	if (window_Active)
 	{
-		window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
-		draw_window_buttons();
-	}
-}
-
-int draw_window_buttons()
-{
-	// loop for individual buttons
-
-	for (int i = 0; i < 4; i++)
-	{
-		if (GuiButton((Rectangle){165, i * 70 + 90, 270, 50}, windows[i].label))
+		window_Active = !GuiWindowBox((Rectangle) { 150, 50, 300, 320 }, "Add Equation");
+		for (int i = 0; i < 4; i++)
 		{
-
-			// to prevent duplication of windows
-			for (int j = 0; j < 4; j++)
+			if (GuiButton((Rectangle) { 165, i * 70 + 90, 270, 50 }, windows[i].label))
 			{
-				if (i != j)
-					windows[j].show = false;
-				else
-					windows[j].show = true;
+				// to prevent duplication of windows
+				for (int j = 0; j < 4; j++)
+				{
+					if (i != j)
+						windows[j].show = false;
+					else {
+						windows[j].show = true;
+					}
+				}
 			}
 		}
 	}
 }
 
-int draw_2ndwin()
+
+int window_type()
 {
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++) {
 		if (windows[i].show)
 		{
-			windows[i].show = !GuiWindowBox((Rectangle){440, 100, 300, 70 * windows[i].typelen + 40}, windows[i].label);
+			windows[i].show = !GuiWindowBox((Rectangle) { 440, 100, 300, 70 * windows[i].typelen + 40 }, windows[i].label);
 
 			for (int j = 0; j < windows[i].typelen; j++)
 			{
-				GuiButton((Rectangle){455, j * 70 + 140, 270, 50}, windows[i].types[j]);
+				if (GuiButton((Rectangle) { 455, j * 70 + 140, 270, 50 }, windows[i].types[j].label)) {
+					for (int k = 0; k < windows[i].typelen; k++)
+					{
+						if (j != k)
+							windows[i].types[k].show = false;
+						else
+							windows[i].types[k].show = true;
+					}
+				}
 			}
 		}
 	}
+}
+
+int window_input()
+{
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < windows[i].typelen; j++) {
+			//add code for 3rd window
+		}
+	}
+
+	GuiSpinner((Rectangle) { 10, 20, 30, 40 }, "Hello");
 }
 
 int box_eq(int i)
@@ -97,7 +113,7 @@ int box_eq(int i)
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
-	equation_arr[i].show = GuiCheckBox((Rectangle){15, i * 70 + 15 + 20, 20, 20}, "\0", equation_arr[i].show);
+	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
 	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }
