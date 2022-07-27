@@ -5,10 +5,13 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[4] = { {false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
+Window windows[4] = {{false, "Polynomial", 5, {"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"}},
 					 {false, "Conic Section", 4, {"Ellipse", "Parabola", "Hyperbola", "Circle"}},
 					 {false, "Trigonometric", 3, {"Sin", "Cos", "Tan"}},
-					 {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}} };
+					 {false, "Exponential", 3, {"e^x", "a^x", "log(base a)x"}}};
+// no of equations
+int num_eq = 0;
+bool window_Active = false;
 
 int init_window()
 {
@@ -26,13 +29,33 @@ int draw_sections()
 	draw_graph();
 }
 
+int draw_boxes(){
+	for(int i=0; i< num_eq; i++)
+		box_eq(i);
+}
+
+int draw_1stwin()
+{
+	if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
+	{
+		window_Active = true;
+		// num_eq++;
+	}
+
+	if (window_Active)
+	{
+		window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
+		draw_window_buttons();
+	}
+}
+
 int draw_window_buttons()
 {
 	// loop for individual buttons
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (GuiButton((Rectangle) { 165, i * 70 + 90, 270, 50 }, windows[i].label))
+		if (GuiButton((Rectangle){165, i * 70 + 90, 270, 50}, windows[i].label))
 		{
 
 			// to prevent duplication of windows
@@ -53,11 +76,11 @@ int draw_2ndwin()
 	{
 		if (windows[i].show)
 		{
-			windows[i].show = !GuiWindowBox((Rectangle) { 440, 100, 300, 70 * windows[i].typelen + 40 }, windows[i].label);
+			windows[i].show = !GuiWindowBox((Rectangle){440, 100, 300, 70 * windows[i].typelen + 40}, windows[i].label);
 
 			for (int j = 0; j < windows[i].typelen; j++)
 			{
-				GuiButton((Rectangle) { 455, j * 70 + 140, 270, 50 }, windows[i].types[j]);
+				GuiButton((Rectangle){455, j * 70 + 140, 270, 50}, windows[i].types[j]);
 			}
 		}
 	}
@@ -74,7 +97,7 @@ int box_eq(int i)
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
-	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
+	equation_arr[i].show = GuiCheckBox((Rectangle){15, i * 70 + 15 + 20, 20, 20}, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
 	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
 }

@@ -15,8 +15,7 @@ int main(void)
 {
 	// init window
 	init_window();
-	// no of equations
-	int num_eq = 0;
+	
 
 	// For testing purposes
 	equation_arr[0].label = "quad=x";
@@ -59,7 +58,6 @@ int main(void)
 	equation_arr[7].show = false;
 	equation_arr[7].type = "log";
 
-	bool window_Active = false;
 
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -69,22 +67,10 @@ int main(void)
 		// Draws sections of main window
 		draw_sections();
 		// initialize euqations box num_eq times
-		for (int j = 0; j < num_eq; j++)
-			box_eq(j);
+		draw_boxes();
 
-		if (num_eq < 8 && GuiButton((Rectangle){15, num_eq * 70 + 20, 270, 50}, "Add Equation"))
-		{
-			window_Active = true;
-			// num_eq++;
-		}
-
-		if (window_Active)
-		{
-			window_Active = !GuiWindowBox((Rectangle){150, 50, 300, 320}, "Add Equation");
-			draw_window_buttons();
-			
-		}
-
+		//custon functions to draw windows
+		draw_1stwin();
 		draw_2ndwin();
 		// GuiTextInputBox((Rectangle) {200,100,100,200}, 'a', 'b', 'v', 'd');
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
