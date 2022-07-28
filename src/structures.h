@@ -20,6 +20,7 @@ typedef struct Type {
     bool show;
 	char *label;
     int var_num;
+    float value[4];
 }Type;
 
 typedef struct Window
@@ -30,4 +31,6 @@ typedef struct Window
     Type types[5];
 } Window;
 
+
+extern Window windows[4];
 #endif

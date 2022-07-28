@@ -72,9 +72,9 @@ void draw_log(float a, Color col) {
 	int centerY = GetScreenHeight() / 2;
 
 	if (a > 0 && a != 1) {
+		// from origin to 0.001
 		float x1, y1, x2, y2;
 		int j = 0;
-
 		x1 = 0.0001 * 15;
 		y1 = 600;
 		x2 = 0.001 * 15;
@@ -85,8 +85,7 @@ void draw_log(float a, Color col) {
 			centerX + x2, centerY - y2
 		}, 2.0f, col);
 
-		// for range 0 to 1
-
+		// for range 0.001 to 1
 		for (float i = 0.001; i < 1; i += 0.001, j++) {
 
 			if (j % 2 == 0) {

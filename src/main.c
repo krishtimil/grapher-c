@@ -10,6 +10,8 @@
 
 // initialize array of euqations
 Equation equation_arr[8];
+float value = 50.0f;
+
 
 int main(void)
 {
@@ -72,7 +74,19 @@ int main(void)
 		//custon functions to draw windows
 		window_add();
 		window_type();
-		window_input();
+		//window_input();
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < windows[i].typelen; j++) {
+				if (windows[i].types[j].show)
+				{
+					windows[i].types[j].show = !GuiWindowBox((Rectangle) { 630, 150, 250, 70 * windows[i].types[j].var_num + 40 }, windows[i].types[j].label);
+					for (int k = 0; k < windows[i].types[j].var_num; k++) {
+						windows[i].types[j].value[k] = GuiSliderBar((Rectangle) { 645, 170 + k * 40, 120, 20 }, "-10", "10", windows[i].types[j].value[k], -10, 10);
+					}
+				}
+			}
+		}
 		
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
