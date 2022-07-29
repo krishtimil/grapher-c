@@ -3,9 +3,8 @@
 
 int init_window();
 int draw_sections();
+int draw_boxes();
 int window_add();
-int window_type();
-int window_input();
 int box_eq(int i);
 
 #endif
