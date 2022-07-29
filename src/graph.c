@@ -42,9 +42,6 @@ int draw_graph()
 int show_eq(char* type, int a, int b, int c, int d, Color col)
 {
 	// type = tolower(type);
-	// srand(1234);
-	// Color colors[] = {GREEN, RED, GREEN, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKRED, DARKPURPLE};
-	// col = colors[floor(rand()*4)];
 	floor(rand() * 10);
 	if (!strcmp(type, "quadratic_x"))
 		quadratic_x(a, b, c, col);

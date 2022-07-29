@@ -1,4 +1,5 @@
 #include <raylib.h>
+
 // TODO: SlideListView
 // custom header
 #include "ui.h"
@@ -101,6 +102,8 @@ int window_add()
 		added = GuiButton((Rectangle) { 355, 300, 190, 45 }, "Add");
 		if (added) {
 			window_Active = false;
+			Color colors[] = {RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE};
+			equation_arr[num_eq].color = colors[(int)rand() % 4];
 			num_eq++;
 		}
 	}
@@ -113,12 +116,12 @@ int box_eq(int i)
 
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type.label, 1, 1, 0, 0, GREEN);
+		show_eq(equation_arr[i].type.label, 1, 1, 0, 0, equation_arr[i].color);
 	}
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
 	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
-	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, MAGENTA);
+	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, equation_arr[i].color);
 }

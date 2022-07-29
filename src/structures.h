@@ -15,6 +15,7 @@ typedef struct Equation
     char *label;
     Type type;
     bool show;
+    Color color;
 } Equation;
 
 extern Equation equation_arr[8];
