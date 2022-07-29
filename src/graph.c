@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include <math.h>
 #include <string.h>
-#include <stdlib.h>
 
 #define PI_2 1.57079
 

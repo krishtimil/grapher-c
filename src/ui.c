@@ -103,7 +103,9 @@ int window_add()
 		if (added) {
 			window_Active = false;
 			Color colors[] = {RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE};
-			equation_arr[num_eq].color = colors[(int)rand() % 4];
+			equation_arr[num_eq].color = colors[(GetRandomValue(0,7))];
+			equation_arr[num_eq].label = windows[current_category].types[current_type].label;
+			equation_arr[num_eq].show = false;
 			num_eq++;
 		}
 	}

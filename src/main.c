@@ -32,7 +32,7 @@ int main(void)
 		// initialize euqations box num_eq times
 		draw_boxes();
 
-		//custon functions to draw windows
+		//custom functions to draw window
 		window_add();
 		
 		//code for input sliders
