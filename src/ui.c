@@ -5,14 +5,35 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[4] = { {false, "Polynomial", 5, {
-	{false, "Linear", 2, {0}}, {false, "Quadratic in X", 3, {0}},{false,  "Quadratic in Y",3, {0}}, {false, "Cubic in X",4, {0}},{false,  "Cubic in Y",4, {0}}}},
-					 {false, "Conic Section", 4, {
-		{false, "Ellipse",2, {0}}, {false, "Parabola",1, {0}}, {false, "Hyperbola",2, {0}}, {false, "Circle",1, {0}}}},
-					 {false, "Trigonometric", 3, {
-		{false, "Sin",3, {0}}, {false, "Cos",3, {0}}, {false, "Tan",3, {0}}}},
-					 {false, "Exponential", 3, {
-		{false, "e^(ax)",1, {0}}, {false, "a^x",1, {0}}, {false, "log(base a)x",1, {0}}}} };
+Window windows[4] = { 
+	{"Polynomial", 5, {
+					{"linear", 2, {0}},
+					{"quadratic_x", 3, {0}},
+					{ "quadratic_y",3, {0}}, 
+					{"cubic_x",4, {0}},
+					{ "cubic_y",4, {0}}
+				}
+		},
+	{"Conic Section", 4, {
+					{"ellipse",2, {0}}, 
+					{"parabola",1, {0}}, 
+					{"hyperbola",2, {0}}, 
+					{"circle",1, {0}}
+				}
+		},
+	{"Trigonometric", 3, {
+					{"sin",3, {0}}, 
+					{"cos",3, {0}}, 
+					{"tan",3, {0}}
+				}
+		},
+	{"Exponential", 3, {
+					{"e_ax",1, {0}},
+					{"a_x",1, {0}},
+					{"log_a_x",1, {0}}
+				}
+		} 
+};
 
 //arrays for list view
 char* window_category[4] = { "Polynomial", "Conic Section", "Trigonometric", "Exponential"};
@@ -78,7 +99,10 @@ int window_add()
 		GuiGroupBox((Rectangle) { 355, 80, 190, 215 }, "Type");
 		current_type = GuiListViewEx((Rectangle) { 360, 90, 180, 200 }, window_type[current_category], windows[current_category].typelen, 0, NULL, current_type);
 		added = GuiButton((Rectangle) { 355, 300, 190, 45 }, "Add");
-
+		if (added) {
+			window_Active = false;
+			num_eq++;
+		}
 	}
 }
 
@@ -89,7 +113,7 @@ int box_eq(int i)
 
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type, 24, 100, 0, 0, equation_arr[i].col);
+		show_eq(equation_arr[i].type, 1, 1, 0, 0, equation_arr[i].col);
 	}
 
 	// Draw GUI controls

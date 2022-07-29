@@ -63,7 +63,7 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 		ellipse(a, b, col);
 	if (!strcmp(type, "linear"))
 		linear(a, b, col);
-	if (!strcmp(type, "log"))
+	if (!strcmp(type, "log_a_x"))
 		draw_log(a, col);
 }
 
