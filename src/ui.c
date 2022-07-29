@@ -113,12 +113,12 @@ int box_eq(int i)
 
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type, 1, 1, 0, 0, equation_arr[i].col);
+		show_eq(equation_arr[i].type.label, 1, 1, 0, 0, GREEN);
 	}
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
 	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
-	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, GREEN);
+	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, MAGENTA);
 }

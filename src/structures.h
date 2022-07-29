@@ -13,8 +13,7 @@ typedef struct Type {
 typedef struct Equation
 {
     char *label;
-    Color col;
-    Type *type;
+    Type type;
     bool show;
 } Equation;
 
@@ -26,6 +25,7 @@ typedef struct Window
     char *label;
     int typelen;
     Type types[5];
+    Color col;
 } Window;
 
 
