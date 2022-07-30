@@ -45,6 +45,8 @@ char* window_type[4][5] = {
 	{"e^(ax)", "a^x", "log(base a) x"}
 };
 
+char* vars[] = { "a:", "b:", "c:", "d:" };
+
 
 
 // no of equations
@@ -65,7 +67,7 @@ int init_window()
 	const int screenHeight = 600;
 	InitWindow(screenWidth, screenHeight, "Grapher-C");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
-	/*Font font = LoadFontEx('res/Monospace.otf', 32, 0, 250);
+	/*Font font = LoadFontEx("res/Monospace.otf", 32, 0, 250);
 	GuiSetFont(font);*/
 }
 
@@ -84,7 +86,7 @@ int draw_boxes() {
 
 int window_add()
 {
-	if (num_eq < 5 && GuiButton((Rectangle) { 15, num_eq * 114 + 10, 270, 50 }, "Add Equation"))
+	if (num_eq < 5 && GuiButton((Rectangle) { 15, num_eq * 120 + 10, 270, 50 }, "Add Equation"))
 	{
 		window_Active = true;
 		//num_eq++;
@@ -104,7 +106,7 @@ int window_add()
 			window_Active = false;
 			Color colors[] = { RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
 			equation_arr[num_eq].color = colors[(GetRandomValue(0, 7))];
-			equation_arr[num_eq].label = windows[current_category].types[current_type].label;
+			equation_arr[num_eq].type = windows[current_category].types[current_type];
 			equation_arr[num_eq].show = false;
 			num_eq++;
 		}
@@ -119,36 +121,32 @@ int box_eq(int i)
 	if (showEq)
 	{
 		show_eq(equation_arr[i].type.label, 1, 1, 0, 0, equation_arr[i].color);
+		sliders(i);
 	}
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
-	//equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 50 * i, 20, 20 }, "\0", equation_arr[i].show);
-	//DrawRectangleLines(50, i * 70 + 5 + 50 * i, 235, 40, BLACK);
-	//DrawText(equation_arr[i].label, 50 + 10, i * 70 + 5 + 50 * i + 10, 25, equation_arr[i].color);
+	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 15 + 120*i, 20, 20 }, "\0", equation_arr[i].show);
+	DrawRectangleLines(50, 5 + 120 * i, 235, 40, BLACK);
+	DrawText(equation_arr[i].type.label, 50 + 10,10 +120*i, 25, equation_arr[i].color);
 
-	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 5 + 35 * i + 79 * i + 7.5f, 20, 20 }, "\0", equation_arr[i].show);
-	DrawRectangleLines(50, 5 + 35 * i + 79 * i, 235, 35, BLACK);
-	DrawText(equation_arr[i].label, 50 + 10, 5 + 35 * i + 79 * i + 7, 25, equation_arr[i].color);
+	//equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 5 + 35 * i + 79 * i + 7.5f, 20, 20 }, "\0", equation_arr[i].show);
+	//DrawRectangleLines(50, 5 + 35 * i + 79 * i, 235, 35, BLACK);
+	//DrawText(equation_arr[i].type.label, 50 + 10, 5 + 35 * i + 79 * i + 7, 25, equation_arr[i].color);
 
-
-	if (!equation_arr[i].show) return;
-	if (equation_arr[i].type.var_num >= 1) {
-		// a 
-	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[0], -10, 10);
-	}
-	if (equation_arr[i].type.var_num >= 2) {
-		// b
-	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[1], -10, 10);
-	}
-	if (equation_arr[i].type.var_num >= 3) {
-		// c
-	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[2], -10, 10);
-	}
-	if (equation_arr[i].type.var_num >= 4) {
-		// d
-	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[3], -10, 10);
-	}
 }
 
+int sliders(int i) {
+	GuiGroupBox((Rectangle) {15, 55 + 120 * i, 270, 60}, "Variables");
+	for (int j = 0; j < equation_arr[i].type.var_num; j++) {
+		float xcor = (j % 2 == 0) ? 30 : 160 ;
+		float ycor = 120 * i + ((j / 2 != 0) ? 25 : 0);
+		if (equation_arr[i].type.var_num <= 2)
+			ycor += 75;
+		else
+			ycor += 65;
+		DrawText(vars[j], xcor, ycor, 20, GRAY);
+		equation_arr[i].type.value[j] = GuiSlider((Rectangle) {xcor+40, ycor , 60, 20}, "-10", "10", equation_arr[i].type.value[j], -10, 10);
+	}
+}
 

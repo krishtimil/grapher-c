@@ -12,7 +12,6 @@ typedef struct Type {
 
 typedef struct Equation
 {
-    char *label;
     Type type;
     bool show;
     Color color;
