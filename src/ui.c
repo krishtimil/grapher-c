@@ -132,23 +132,23 @@ int box_eq(int i)
 	DrawText(equation_arr[i].label, 50 + 10, 5 + 35 * i + 79 * i + 7, 25, equation_arr[i].color);
 
 
-	//if (!equation_arr[i].show) return;
-	//if (equation_arr[i].type.var_num >= 1) {
-		// a
-	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", 0, -10, 10);
-	//}
-	//if (equation_arr[i].type.var_num >= 2) {
+	if (!equation_arr[i].show) return;
+	if (equation_arr[i].type.var_num >= 1) {
+		// a 
+	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[0], -10, 10);
+	}
+	if (equation_arr[i].type.var_num >= 2) {
 		// b
-	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", 0, -10, 10);
-	//}
-	//if (equation_arr[i].type.var_num >= 3) {
+	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[1], -10, 10);
+	}
+	if (equation_arr[i].type.var_num >= 3) {
 		// c
-	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", 0, -10, 10);
-	//}
-	//if (equation_arr[i].type.var_num >= 4) {
+	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[2], -10, 10);
+	}
+	if (equation_arr[i].type.var_num >= 4) {
 		// d
-	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", 0, -10, 10);
-	//}
-
-
+	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", equation_arr[i].type.value[3], -10, 10);
+	}
 }
+
+
