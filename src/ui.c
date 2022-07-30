@@ -6,25 +6,25 @@
 #include "graph.h"
 #include "structures.h"
 
-Window windows[4] = { 
+Window windows[4] = {
 	{"Polynomial", 5, {
 					{"linear", 2, {0}},
 					{"quadratic_x", 3, {0}},
-					{ "quadratic_y",3, {0}}, 
+					{ "quadratic_y",3, {0}},
 					{"cubic_x",4, {0}},
 					{ "cubic_y",4, {0}}
 				}
 		},
 	{"Conic Section", 4, {
-					{"ellipse",2, {0}}, 
-					{"parabola",1, {0}}, 
-					{"hyperbola",2, {0}}, 
+					{"ellipse",2, {0}},
+					{"parabola",1, {0}},
+					{"hyperbola",2, {0}},
 					{"circle",1, {0}}
 				}
 		},
 	{"Trigonometric", 3, {
-					{"sin",3, {0}}, 
-					{"cos",3, {0}}, 
+					{"sin",3, {0}},
+					{"cos",3, {0}},
 					{"tan",3, {0}}
 				}
 		},
@@ -33,11 +33,11 @@ Window windows[4] = {
 					{"a_x",1, {0}},
 					{"log_a_x",1, {0}}
 				}
-		} 
+		}
 };
 
 //arrays for list view
-char* window_category[4] = { "Polynomial", "Conic Section", "Trigonometric", "Exponential"};
+char* window_category[4] = { "Polynomial", "Conic Section", "Trigonometric", "Exponential" };
 char* window_type[4][5] = {
 	{"Linear", "Quadratic in X", "Quadratic in Y", "Cubic in X", "Cubic in Y"},
 	{"Ellipse", "Parabola", "Hyberbola", "Circle"},
@@ -84,7 +84,7 @@ int draw_boxes() {
 
 int window_add()
 {
-	if (num_eq < 8 && GuiButton((Rectangle) { 15, num_eq * 70 + 20, 270, 50 }, "Add Equation"))
+	if (num_eq < 5 && GuiButton((Rectangle) { 15, num_eq * 114 + 10, 270, 50 }, "Add Equation"))
 	{
 		window_Active = true;
 		//num_eq++;
@@ -93,7 +93,7 @@ int window_add()
 	if (window_Active)
 	{
 		//add data
-		
+
 		window_Active = !GuiWindowBox((Rectangle) { 150, 45, 400, 310 }, "Add Equation");
 		GuiGroupBox((Rectangle) { 155, 80, 190, 265 }, "Category");
 		current_category = GuiListViewEx((Rectangle) { 160, 90, 180, 250 }, window_category, 4, 0, NULL, current_category);
@@ -102,8 +102,8 @@ int window_add()
 		added = GuiButton((Rectangle) { 355, 300, 190, 45 }, "Add");
 		if (added) {
 			window_Active = false;
-			Color colors[] = {RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE};
-			equation_arr[num_eq].color = colors[(GetRandomValue(0,7))];
+			Color colors[] = { RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
+			equation_arr[num_eq].color = colors[(GetRandomValue(0, 7))];
 			equation_arr[num_eq].label = windows[current_category].types[current_type].label;
 			equation_arr[num_eq].show = false;
 			num_eq++;
@@ -123,7 +123,32 @@ int box_eq(int i)
 
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
-	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 20, 20, 20 }, "\0", equation_arr[i].show);
-	DrawRectangleLines(50, i * 70 + 20, 235, 50, BLACK);
-	DrawText(equation_arr[i].label, 50 + 10, i * 70 + 20 + 10, 30, equation_arr[i].color);
+	//equation_arr[i].show = GuiCheckBox((Rectangle) { 15, i * 70 + 15 + 50 * i, 20, 20 }, "\0", equation_arr[i].show);
+	//DrawRectangleLines(50, i * 70 + 5 + 50 * i, 235, 40, BLACK);
+	//DrawText(equation_arr[i].label, 50 + 10, i * 70 + 5 + 50 * i + 10, 25, equation_arr[i].color);
+
+	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 5 + 35 * i + 79 * i + 7.5f, 20, 20 }, "\0", equation_arr[i].show);
+	DrawRectangleLines(50, 5 + 35 * i + 79 * i, 235, 35, BLACK);
+	DrawText(equation_arr[i].label, 50 + 10, 5 + 35 * i + 79 * i + 7, 25, equation_arr[i].color);
+
+
+	//if (!equation_arr[i].show) return;
+	//if (equation_arr[i].type.var_num >= 1) {
+		// a
+	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", 0, -10, 10);
+	//}
+	//if (equation_arr[i].type.var_num >= 2) {
+		// b
+	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10, 102.5, 25 }, "-10", "10", 0, -10, 10);
+	//}
+	//if (equation_arr[i].type.var_num >= 3) {
+		// c
+	GuiSlider((Rectangle) { 40, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", 0, -10, 10);
+	//}
+	//if (equation_arr[i].type.var_num >= 4) {
+		// d
+	GuiSlider((Rectangle) { 40 + 102.5 + 30, 5 + 35 * i + 79 * i + 35 + 10 + 5 + 29.5, 102.5, 25 }, "-10", "10", 0, -10, 10);
+	//}
+
+
 }
