@@ -17,10 +17,11 @@ int main(void)
 {
 	// init window
 	init_window();
-
-	equation_arr[0].type = (Type) {"linear", 2, {0}};
-	equation_arr[0].show = true;
-	equation_arr[0].label = "Braz";
+for (int k =0; k<5; k++){
+	equation_arr[k].type = (Type) {"default",2, {0}};
+	equation_arr[k].show = true;
+	equation_arr[k].label = "default";
+}
 
 	// Main game loop
 	while (!WindowShouldClose()) // Detect window close button or ESC key
