@@ -45,7 +45,6 @@ char* window_type[4][5] = {
 	{"e^(ax)", "a^x", "log(base a) x"}
 };
 
-char* vars[] = { "a:", "b:", "c:", "d:" };
 
 
 
@@ -96,18 +95,20 @@ int window_add()
 	{
 		//add data
 
-		window_Active = !GuiWindowBox((Rectangle) { 150, 45, 400, 310 }, "Add Equation");
-		GuiGroupBox((Rectangle) { 155, 80, 190, 265 }, "Category");
-		current_category = GuiListViewEx((Rectangle) { 160, 90, 180, 250 }, window_category, 4, 0, NULL, current_category);
-		GuiGroupBox((Rectangle) { 355, 80, 190, 215 }, "Type");
-		current_type = GuiListViewEx((Rectangle) { 360, 90, 180, 200 }, window_type[current_category], windows[current_category].typelen, 0, NULL, current_type);
-		added = GuiButton((Rectangle) { 355, 300, 190, 45 }, "Add");
+		window_Active = !GuiWindowBox((Rectangle) { 285, 45, 400, 310 }, "Add Equation");
+		GuiGroupBox((Rectangle) { 290, 80, 190, 265 }, "Category");
+		current_category = GuiListViewEx((Rectangle) { 295, 90, 180, 250 }, window_category, 4, 0, NULL, current_category);
+		GuiGroupBox((Rectangle) { 490, 80, 190, 215 }, "Type");
+		current_type = GuiListViewEx((Rectangle) { 495, 90, 180, 200 }, window_type[current_category], windows[current_category].typelen, 0, NULL, current_type);
+		added = GuiButton((Rectangle) { 495, 300, 190, 45 }, "Add");
 		if (added) {
 			window_Active = false;
 			Color colors[] = { RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
 			equation_arr[num_eq].color = colors[(GetRandomValue(0, 7))];
 			equation_arr[num_eq].type = windows[current_category].types[current_type];
-			equation_arr[num_eq].show = false;
+			//equation_arr[num_eq].type.value = {0,0,0,0};
+			for(int i=0; i< 4; i++)
+				equation_arr[num_eq].type.value[i] = GetRandomValue(-10, 10);
 			num_eq++;
 		}
 	}
@@ -120,8 +121,8 @@ int box_eq(int i)
 
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type.label, 1, 1, 0, 0, equation_arr[i].color);
-		sliders(i);
+		show_eq(equation_arr[i].type.label, equation_arr[i].type.value[0], equation_arr[i].type.value[1], equation_arr[i].type.value[2], equation_arr[i].type.value[3], equation_arr[i].color);
+		//sliders(i);
 	}
 
 	// Draw GUI controls
@@ -130,23 +131,8 @@ int box_eq(int i)
 	DrawRectangleLines(50, 5 + 120 * i, 235, 40, BLACK);
 	DrawText(equation_arr[i].type.label, 50 + 10,10 +120*i, 25, equation_arr[i].color);
 
-	//equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 5 + 35 * i + 79 * i + 7.5f, 20, 20 }, "\0", equation_arr[i].show);
-	//DrawRectangleLines(50, 5 + 35 * i + 79 * i, 235, 35, BLACK);
-	//DrawText(equation_arr[i].type.label, 50 + 10, 5 + 35 * i + 79 * i + 7, 25, equation_arr[i].color);
+	
 
 }
 
-int sliders(int i) {
-	GuiGroupBox((Rectangle) {15, 55 + 120 * i, 270, 60}, "Variables");
-	for (int j = 0; j < equation_arr[i].type.var_num; j++) {
-		float xcor = (j % 2 == 0) ? 30 : 160 ;
-		float ycor = 120 * i + ((j / 2 != 0) ? 25 : 0);
-		if (equation_arr[i].type.var_num <= 2)
-			ycor += 75;
-		else
-			ycor += 65;
-		DrawText(vars[j], xcor, ycor, 20, GRAY);
-		equation_arr[i].type.value[j] = GuiSlider((Rectangle) {xcor+40, ycor , 60, 20}, "-10", "10", equation_arr[i].type.value[j], -10, 10);
-	}
-}
 

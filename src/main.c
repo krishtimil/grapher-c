@@ -10,7 +10,8 @@
 
 // initialize array of euqations
 Equation equation_arr[8];
-float value = 50.0f;
+
+char* vars[] = { "a:", "b:", "c:", "d:" };
 
 
 int main(void)
@@ -32,17 +33,21 @@ int main(void)
 		window_add();
 		
 		//code for input sliders
-		/*for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < windows[i].typelen; j++) {
-				if (windows[i].types[j].show)
-				{
-					windows[i].types[j].show = !GuiWindowBox((Rectangle) { 630, 150, 250, 70 * windows[i].types[j].var_num + 40 }, windows[i].types[j].label);
-					for (int k = 0; k < windows[i].types[j].var_num; k++) {
-						windows[i].types[j].value[k] = GuiSliderBar((Rectangle) { 645, 200 + k * 40, 120, 20 }, "-10", "10", windows[i].types[j].value[k], -10, 10);
-					}
+		for (int i = 0; i < 5; i++) {
+			if (equation_arr[i].show) {
+				GuiGroupBox((Rectangle) { 15, 55 + 120 * i, 270, 60 }, "Variables");
+				for (int j = 0; j < equation_arr[i].type.var_num; j++) {
+					float xcor = (j % 2 == 0) ? 30 : 160;
+					float ycor = 120 * i + ((j / 2 != 0) ? 25 : 0);
+					if (equation_arr[i].type.var_num <= 2)
+						ycor += 75;
+					else
+						ycor += 65;
+					DrawText(vars[j], xcor, ycor, 20, GRAY);
+					equation_arr[i].type.value[j] = GuiSlider((Rectangle) { xcor + 40, ycor, 60, 20 }, "-10", "10", equation_arr[i].type.value[j], -10, 10);
 				}
 			}
-		}*/
+		}
 		
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 
