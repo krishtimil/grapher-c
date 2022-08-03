@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <string.h>
 
 // TODO: SlideListView
 // custom header
@@ -46,6 +47,8 @@ char* window_type[4][5] = {
 };
 
 
+// Function initialization
+char *labelBuilder(char *label, float a, float b, float c, float d);
 
 
 // no of equations
@@ -115,13 +118,24 @@ int window_add()
 }
 
 
+
 int box_eq(int i)
 {
 	bool showEq = equation_arr[i].show;
 
+
+	char label[80];
+	strcpy(label,equation_arr[i].type.label);
+	int a = equation_arr[i].type.value[0];
+	int b = equation_arr[i].type.value[1];
+	int c = equation_arr[i].type.value[2];
+	int d = equation_arr[i].type.value[3];
+	Color color = equation_arr[i].color;
+
+
 	if (showEq)
 	{
-		show_eq(equation_arr[i].type.label, equation_arr[i].type.value[0], equation_arr[i].type.value[1], equation_arr[i].type.value[2], equation_arr[i].type.value[3], equation_arr[i].color);
+		show_eq(label, a,b,c,d, equation_arr[i].color);
 		//sliders(i);
 	}
 
@@ -129,9 +143,48 @@ int box_eq(int i)
 	//------------------------------------------------------------------------------
 	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 15 + 120*i, 20, 20 }, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, 5 + 120 * i, 235, 40, BLACK);
-	DrawText(equation_arr[i].type.label, 50 + 10,10 +120*i, 25, equation_arr[i].color);
+	DrawText(labelBuilder(label,a,b,c,d), 50 + 10,10 +120*i, 25, color);
+}
 
-	
+
+char *labelBuilder(char *label, float a, float b, float c, float d){
+	//polynomial
+	if (!strcmp(label, "linear")) {
+		char *formatted = a!=0?(b>0?(char *)TextFormat("y=%.1fx + %.1fc", a, b):(b<0?(char *)TextFormat("y=%.1fx - %.1fc", a, -1*b):TextFormat("y=%.1fx",a))):(b>0?(char *)TextFormat("y=%.1fc", b):(b<0?(char *)TextFormat("y= - %.1fc", -1*b):TextFormat("y=0")));
+		return formatted;
+		
+	}
+	else return label; // to avoid crash if any label is missing
+
+
+	// if (!strcmp(label, "quadratic_x"))
+
+	// if (!strcmp(label, "quadratic_y"))
+
+	// if (!strcmp(label, "cubic_x"))
+
+	// if (!strcmp(label, "cubic_y"))
+
+	// // Conic Section
+	// if (!strcmp(label, "hyperbola"))
+
+	// if (!strcmp(label, "ellipse"))
+
+	// if (!strcmp(label, "circle"))
+
+	// // trignometric
+	// if (!strcmp(label, "sine"))
+
+	// if (!strcmp(label, "cos"))
+	 
+	// if (!strcmp(label, "tan"))
+
+	// // exponential
+	// if (!strcmp(label, "log_a_x"))
+
+	// if(!strcmp(label, "a_x"))
+
+	// if(!strcmp(label, "e_ax"))
 
 }
 
