@@ -136,7 +136,7 @@ int box_eq(int i)
 	if (showEq)
 	{
 		show_eq(label, a,b,c,d, equation_arr[i].color);
-		//sliders(i);
+		DrawRectangle(0, 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));	//sliders(i);
 	}
 
 	// Draw GUI controls
@@ -157,25 +157,25 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 	if (!strcmp(label, "linear")) {
 		if (!a) {
 			if (!b)
-				return TextFormat("y=0");
+				return (char *) TextFormat("y=0");
 			else
-				return TextFormat("y=%0.1f", b);
+				return (char *) TextFormat("y=%0.1f", b);
 		}
 		else {
 			if (!b)
-				return TextFormat("y=%.1fx", a);
+				return (char *) TextFormat("y=%.1fx", a);
 			else
 				if (b > 0)
-					return TextFormat("y=%.1fx + %.1f", a, b);
+					return (char *) TextFormat("y=%.1fx + %.1f", a, b);
 				else
-					return TextFormat("y=%.1fx - %.1f", a, -b);
+					return (char *)TextFormat("y=%.1fx - %.1f", a, -b);
 		}
 	}
 
 
 	if (!strcmp(label, "quadratic_x")) {
-		return TextFormat("y=%.1fx^2 + %.1fx + %.1f", a, b, c);
-	 }
+		return (char *)TextFormat("y=%.1fx^2 + %.1fx + %.1f", a, b, c);
+	}
 	
 
 	// if (!strcmp(label, "quadratic_y"))
