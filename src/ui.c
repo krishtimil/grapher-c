@@ -149,15 +149,34 @@ int box_eq(int i)
 
 char *labelBuilder(char *label, float a, float b, float c, float d){
 	//polynomial
-	if (!strcmp(label, "linear")) {
+	/*if (!strcmp(label, "linear")) {
 		char *formatted = a!=0?(b>0?(char *)TextFormat("y=%.1fx + %.1fc", a, b):(b<0?(char *)TextFormat("y=%.1fx - %.1fc", a, -1*b):TextFormat("y=%.1fx",a))):(b>0?(char *)TextFormat("y=%.1fc", b):(b<0?(char *)TextFormat("y= - %.1fc", -1*b):TextFormat("y=0")));
 		return formatted;
 		
+	}*/
+	if (!strcmp(label, "linear")) {
+		if (!a) {
+			if (!b)
+				return TextFormat("y=0");
+			else
+				return TextFormat("y=%0.1f", b);
+		}
+		else {
+			if (!b)
+				return TextFormat("y=%.1fx", a);
+			else
+				if (b > 0)
+					return TextFormat("y=%.1fx + %.1f", a, b);
+				else
+					return TextFormat("y=%.1fx - %.1f", a, -b);
+		}
 	}
-	else return label; // to avoid crash if any label is missing
 
 
-	// if (!strcmp(label, "quadratic_x"))
+	if (!strcmp(label, "quadratic_x")) {
+		return TextFormat("y=%.1fx^2 + %.1fx + %.1f", a, b, c);
+	 }
+	
 
 	// if (!strcmp(label, "quadratic_y"))
 
