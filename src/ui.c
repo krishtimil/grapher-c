@@ -210,6 +210,7 @@ int clean_up() {
 };
 
 
+
 char *labelBuilder(char *label, float a, float b, float c, float d){
 	//polynomial
 	/*if (!strcmp(label, "linear")) {
@@ -237,43 +238,245 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 
 
 	if (!strcmp(label, "quadratic_x")) {
-		return (char *)TextFormat("y=%.1fx^2 + %.1fx + %.1f", a, b, c);
+		if(!a&&!b&&!c) return (char *)TextFormat("y=0"); // a=b=c=0
+		else if(!b&&!c) return (char *)TextFormat("y=%.1fx^2",a); //b=c=0
+		else if(!a&&!c) return (char *)TextFormat("y=%.1fx",b); //a=c=0
+		else if(!a&&!b) return (char *)TextFormat("y=%.1f",c); //a=b=0
+		else if(!a) {
+			if(c>0) return (char *)TextFormat("y=%.1fx + %.1f",b,c); // a=0 c>0
+			else return (char *)TextFormat("y=%.1fx - %.1f",b,-1*c); //a=0 c<0
+		}
+		else if(!b) {
+			if(c>0) return (char *)TextFormat("y=%.1fx^2 + %.1f",a,c); // b=0 c>0
+			else return (char *)TextFormat("y=%.1fx^2 - %.1f",a,-1*c); // b=0 c<0
+		}
+		else if(!c) {
+			if(b>0) return (char *)TextFormat("y=%.1fx^2 + %.1fx",a,b); // c=0 b>0
+			else return (char *)TextFormat("y=%.1fx^2 - %.1fx",a,-1*b); // c=0 b<0
+		}
+		else{
+			if(b>0 && c>0 ) return (char *)TextFormat("y=%.1fx^2 + %.1fx + %.1f", a, b, c); // b and c both positive
+			else if(c>0) return (char *)TextFormat("y=%.1fx^2 - %.1fx + %.1f", a, -1*b, c); // b negative
+			else if(b>0) return (char *)TextFormat("y=%.1fx^2 + %.1fx - %.1f", a, b, -1*c); // c negative
+			else return (char *)TextFormat("y=%.1fx^2 - %.1fx - %.1f", a, -1*b, -1*c); // b and c both negative
+			}
 	}
 	
 
 	if (!strcmp(label, "quadratic_y")) {
-		return (char *)TextFormat("x=%.1fy^2 + %.1fy + %.1f", a, b, c);
+		if(!a&&!b&&!c) return (char *)TextFormat("x=0"); // a=b=c=0
+		else if(!b&&!c) return (char *)TextFormat("x=%.1fy^2",a); //b=c=0
+		else if(!a&&!c) return (char *)TextFormat("x=%.1fy",b); //a=c=0
+		else if(!a&&!b) return (char *)TextFormat("x=%.1f",c); //a=b=0
+		else if(!a) {
+			if(c>0) return (char *)TextFormat("x=%.1fy + %.1f",b,c); // a=0 c>0
+			else return (char *)TextFormat("x=%.1fy - %.1f",b,-1*c); //a=0 c<0
+		}
+		else if(!b) {
+			if(c>0) return (char *)TextFormat("x=%.1fy^2 + %.1f",a,c); // b=0 c>0
+			else return (char *)TextFormat("x=%.1fy^2 - %.1f",a,-1*c); // b=0 c<0
+		}
+		else if(!c) {
+			if(b>0) return (char *)TextFormat("x=%.1fy^2 + %.1fy",a,b); // c=0 b>0
+			else return (char *)TextFormat("x=%.1fy^2 - %.1fy",a,-1*b); // c=0 b<0
+		}
+		else{
+			if(b>0 && c>0 ) return (char *)TextFormat("x=%.1fy^2 + %.1fy + %.1f", a, b, c); // b and c both positive
+			else if(c>0) return (char *)TextFormat("x=%.1fy^2 - %.1fy + %.1f", a, -1*b, c); // b negative
+			else if(b>0) return (char *)TextFormat("x=%.1fy^2 + %.1fy - %.1f", a, b, -1*c); // c negative
+			else return (char *)TextFormat("x=%.1fy^2 - %.1fy - %.1f", a, -1*b, -1*c); // b and c both negative
+			}
 	}
 
 	if (!strcmp(label, "cubic_x")) {
-		return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1fx + %.1f", a, b, c, d);
+		if(!a&&!b&&!c&&!d) return (char *)TextFormat("y=0"); 
+		if(!b&&!c&&!d) return (char *)TextFormat("y=%.1fx^3", a);
+		if(!a&&!c&&!d) return (char *)TextFormat("y=%.1fx^2", b); 
+		if(!a&&!b&&!d) return (char *)TextFormat("y=%.1fx", c); 
+		if(!a&&!b&&!c) return (char *)TextFormat("y=%.1f", d); 
+		if(!a&&!b) {
+			if(d>0) return (char *)TextFormat("y=%.1fx + %.1f", c, d);
+			else return (char *)TextFormat("y=%.1fx + %.1f", c, d);
+		}
+		if(!a&&!c) {
+			if(d>0) return (char *)TextFormat("y=%.1fx^2 + %.1f",  b,  d);
+			else return (char *)TextFormat("y=%.1fx^2 - %.1f", b, -1*d);
+		}
+		if(!a&&!d) {
+			if(c>0) return (char *)TextFormat("y=%.1fx^2 + %.1fx",  b,  c);
+			else return (char *)TextFormat("y=%.1fx^2 - %.1fx", b, -1*c);
+		}
+		if(!b&&!d) {
+			if(c>0) return (char *)TextFormat("y=%.1fx^3 + %.1fx",  a,  c);
+			else return (char *)TextFormat("y=%.1fx^3 - %.1fx", a, -1*c);
+		}
+		if(!b&&!c) {
+			if(d>0) return (char *)TextFormat("y=%.1fx^3 + %.1f",  a,  d);
+			else return (char *)TextFormat("y=%.1fx^3 - %.1f", a, -1*d);
+		}
+		if(!c&&!d) {
+			if(b>0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2",  a,  b);
+			else return (char *)TextFormat("y=%.1fx^3 - %.1fX^2", a, -1*b);
+		}
+		if(!a) {
+			if(c<0&&d<0) return (char *)TextFormat("y=%.1fx^2 - %.1fx - %.1f", b, -1*c, -1*d);
+			if(c<0) return (char *)TextFormat("y=%.1fx^2 - %.1fx + %.1f", b, -1*c, d);
+			if(d<0) return (char *)TextFormat("y=%.1fx^2 + %.1fx - %.1f", b, c, -1*d);
+			else return (char *)TextFormat("y=%.1fx^2 + %.1fx + %.1f", b, c, d);
+		};
+		if(!b) {
+			if(c<0&&d<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx - %.1f", a, -1*c, -1*d);
+			if(c<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx + %.1f", a, -1*c, d);
+			if(d<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx - %.1f", a, c, -1*d);
+			else return (char *)TextFormat("y=%.1fx^3 + %.1fx + %.1f", a, c, d);
+		}
+		if(!c){
+			if(b<0&&d<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 - %.1f", a, -1*b, -1*d);
+			if(b<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 + %.1f", a, -1*b, d);
+			if(d<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 - %.1f", a, b, -1*d);
+			else return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1f", a, b, d);
+		}
+		if(!d) {
+			if(b<0&&c<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 - %.1fx", a, -1*b, -1*c);
+			if(b<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 + %.1fx", a, -1*b, c);
+			if(c<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 - %.1fx", a, b, -1*c);
+			else return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1fx", a, b, c);
+		}; 
+
+			if(b<0&&c<0&&d<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 - %.1fx - %.1f", a, -1*b, -1*c,-1*d);
+			if(b<0&&c<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 - %.1fx + %.1f", a, -1*b, -1*c,d);
+			if(b<0&&d<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 + %.1fx - %.1f", a, -1*b, c,-1*d);
+			if(c<0&&d<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 - %.1fx - %.1f", a, b, -1*c,-1*d);
+			if(b<0) return (char *)TextFormat("y=%.1fx^3 - %.1fx^2 + %.1fx + %.1f", a, -1*b, c, d);
+			if(c<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 - %.1fx + %.1f", a, b, -1*c,d);
+			if(d<0) return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1fx - %.1f", a, b, c,-1*d);
+			else return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1fx + %.1f", a, b, c,d);
+		
 	}
 
 	if (!strcmp(label, "cubic_y")) {
-		return	(char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1fy + %.1f", a, b, c, d);
+		if(!a&&!b&&!c&&!d) return (char *)TextFormat("x=0");
+		if(!b&&!c&&!d) return (char *)TextFormat("x=%.1fy^3", a);
+		if(!a&&!c&&!d) return (char *)TextFormat("x=%.1fy^2", b);
+		if(!a&&!b&&!d) return (char *)TextFormat("x=%.1fy", c);
+		if(!a&&!b&&!c) return (char *)TextFormat("x=%.1f", d);
+		if(!a&&!b) {
+			if(d>0) return (char *)TextFormat("x=%.1fy + %.1f", c, d);
+			else return (char *)TextFormat("x=%.1fy + %.1f", c, d);
+		}
+		if(!a&&!c) {
+			if(d>0) return (char *)TextFormat("x=%.1fy^2 + %.1f",  b,  d);
+			else return (char *)TextFormat("x=%.1fy^2 - %.1f", b, -1*d);
+		}
+		if(!a&&!d) {
+			if(c>0) return (char *)TextFormat("x=%.1fy^2 + %.1fy",  b,  c);
+			else return (char *)TextFormat("x=%.1fy^2 - %.1fy", b, -1*c);
+		}
+		if(!b&&!d) {
+			if(c>0) return (char *)TextFormat("x=%.1fy^3 + %.1fy",  a,  c);
+			else return (char *)TextFormat("x=%.1fy^3 - %.1fy", a, -1*c);
+		}
+		if(!b&&!c) {
+			if(d>0) return (char *)TextFormat("x=%.1fy^3 + %.1f",  a,  d);
+			else return (char *)TextFormat("x=%.1fy^3 - %.1f", a, -1*d);
+		}
+		if(!c&&!d) {
+			if(b>0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2",  a,  b);
+			else return (char *)TextFormat("x=%.1fy^3 - %.1fy^2", a, -1*b);
+		}
+		if(!a) {
+			if(c<0&&d<0) return (char *)TextFormat("x=%.1fy^2 - %.1fy - %.1f", b, -1*c, -1*d);
+			if(c<0) return (char *)TextFormat("x=%.1fy^2 - %.1fy + %.1f", b, -1*c, d);
+			if(d<0) return (char *)TextFormat("x=%.1fy^2 + %.1fy - %.1f", b, c, -1*d);
+			else return (char *)TextFormat("x=%.1fy^2 + %.1fy + %.1f", b, c, d);
+		};
+		if(!b) {
+			if(c<0&&d<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy - %.1f", a, -1*c, -1*d);
+			if(c<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy + %.1f", a, -1*c, d);
+			if(d<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy - %.1f", a, c, -1*d);
+			else return (char *)TextFormat("x=%.1fy^3 + %.1fy + %.1f", a, c, d);
+		}
+		if(!c){
+			if(b<0&&d<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 - %.1f", a, -1*b, -1*d);
+			if(b<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 + %.1f", a, -1*b, d);
+			if(d<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 - %.1f", a, b, -1*d);
+			else return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1f", a, b, d);
+		}
+		if(!d) {
+			if(b<0&&c<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 - %.1fy", a, -1*b, -1*c);
+			if(b<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 + %.1fy", a, -1*b, c);
+			if(c<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 - %.1fy", a, b, -1*c);
+			else return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1fy", a, b, c);
+		}; 
+	
+			if(b<0&&c<0&&d<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 - %.1fy - %.1f", a, -1*b, -1*c,-1*d);
+			if(b<0&&c<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 - %.1fy + %.1f", a, -1*b, -1*c,d);
+			if(b<0&&d<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 + %.1fy - %.1f", a, -1*b, c,-1*d);
+			if(c<0&&d<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 - %.1fy - %.1f", a, b, -1*c,-1*d);
+			if(b<0) return (char *)TextFormat("x=%.1fy^3 - %.1fy^2 + %.1fy + %.1f", a, -1*b, c, d);
+			if(c<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 - %.1fy + %.1f", a, b, -1*c,d);
+			if(d<0) return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1fy - %.1f", a, b, c,-1*d);
+			else return (char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1fy + %.1f", a, b, c,d);
 	}
 
 	// // Conic Section
-	// if (!strcmp(label, "hyperbola"))
+	if (!strcmp(label, "hyperbola")){
+		return (char *) TextFormat("x/%.1f - y/%.1f=1",a*a,b*b);
+	}
 
-	// if (!strcmp(label, "ellipse"))
+	if (!strcmp(label, "ellipse")){
+		return (char *) TextFormat("x/%.1f + y/%.1f=1",a*a,b*b);
+	}
 
-	// if (!strcmp(label, "circle"))
+	if (!strcmp(label, "circle")){
+		return (char *) TextFormat("x^2 + y^2=(%.1f)^2",a,b);
+	}
+
+	if(!strcmp(label, "parabola")){
+		return (char *) TextFormat("y^2=%.1fx", 4*a);
+	}
 
 	// // trignometric
-	// if (!strcmp(label, "sine"))
+	if (!strcmp(label, "sin")){
+		if(!a) return (char *)TextFormat("y=0");
+		else if(!b) return (char *)TextFormat("y=%.1fsin(%.1f)",a,c);
+		else if(!c) return (char *)TextFormat("y=%.1fsin(%.1fx)",a,b);
+		else if(c<0) return (char *)TextFormat("y=%.1fsin(%.1fx - %.1f)",a,b,-1*c);
+		else return (char *)TextFormat("y=%.1fsin(%.1fx + %.1f)",a,b,c);
+	}
 
-	// if (!strcmp(label, "cos"))
+	if (!strcmp(label, "cos")){
+		if(!a) return (char *)TextFormat("y=0");
+		else if(!b) return (char *)TextFormat("y=%.1fcos(%.1f)",a,c);
+		else if(!c) return (char *)TextFormat("y=%.1fcos(%.1fx)",a,b);
+		else if(c<0) return (char *)TextFormat("y=%.1fcos(%.1fx - %.1f)",a,b,-1*c);
+		else return (char *)TextFormat("y=%.1fcos(%.1fx + %.1f)",a,b,c);
+	}
 	 
-	// if (!strcmp(label, "tan"))
+	if (!strcmp(label, "tan")){
+		if(!a) return (char *)TextFormat("y=0");
+		else if(!b) return (char *)TextFormat("y=%.1ftan(%.1f)",a,c);
+		else if(!c) return (char *)TextFormat("y=%.1ftan(%.1fx)",a,b);
+		else if(c<0) return (char *)TextFormat("y=%.1ftan(%.1fx - %.1f)",a,b,-1*c);
+		else return (char *)TextFormat("y=%.1ftan(%.1fx + %.1f)",a,b,c);
+	}
 
 	// // exponential
-	// if (!strcmp(label, "log_a_x"))
+	if (!strcmp(label, "log_a_x")){
+		if(a<=0|| a ==1) return (char *)TextFormat("doesn't exist!");
+		else return (char *)TextFormat("y=log%.1f(x)",a);
+	}
 
-	// if (!strcmp(label, "a_x"))
+	if (!strcmp(label, "a_x")){
+		return (char *)TextFormat("y=(%.1f)^x",a);
+	}
 
-	// if (!strcmp(label, "e_ax"))
+	if (!strcmp(label, "e_ax")){
+		return (char *)TextFormat("y=(e)^%.1fx",a);
+	}
+	
 	return label;
 }
+
 
 
