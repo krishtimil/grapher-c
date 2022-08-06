@@ -8,7 +8,7 @@ A 2d graph plotter in c made by the students of IOE Pulchowk Campus Computer Eng
 Krishant Timilsina   (078BCT045)
 Bishal Panta         (078BCT036)
 Prabin Adhikari      (078BCT058)
-Apil Chaudary        (078BCT)
+Apil Chaudary        (078BCT017)
 ```
 
 ## Screenshot
