@@ -87,7 +87,11 @@ int draw_sections()
 	DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
 	draw_axis();
 	DrawRectangle(300, 550, 100, 50 , LIGHTGRAY);
-	if (GuiButton((Rectangle) {310,560,30,30}, "#113#")) {
+	
+}
+
+int draw_buttons() {
+	if (GuiButton((Rectangle) { 310, 560, 30, 30 }, "#113#")) {
 		for (int i = 0; i < 5; i++) {
 			//equation_arr[i] = {{"\0", 0, {0}}, false, BLANK};
 			num_eq = 0;
@@ -98,12 +102,15 @@ int draw_sections()
 		time(&t);
 		int ti = t;
 		system("mkdir screenshots");
-		TakeScreenshot(TextFormat("screenshots/Grapher_%d.png", ti));
+		TakeScreenshot("screenshots/tmp.png");
+		Image uncropped = LoadImage("screenshots/tmp.png");
+		ImageCrop(&uncropped, (Rectangle) {300,0,600,600});
+		ExportImage(uncropped, TextFormat("screenshots/Grapher_%d.png", ti));
 		fx = LoadSound("res/screen.wav");
+		system("cd screenshots && del tmp.png");
 		PlaySound(fx);
 	}
 }
-
 int draw_boxes() {
 	for (int i = 0; i < num_eq; i++)
 		box_eq(i);
