@@ -85,7 +85,6 @@ int draw_sections()
 {
 	DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
 	DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
-	draw_axis();
 	DrawRectangle(300, 550, 100, 50 , LIGHTGRAY);
 	
 }

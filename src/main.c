@@ -25,6 +25,8 @@ int main(void)
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
+		// draws grid
+		draw_axis();
 		// initialize euqations box num_eq times
 		draw_graphs();
 		// Draws sections of main window

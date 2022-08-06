@@ -67,7 +67,7 @@ int show_eq(char* type, int a, int b, int c, int d, Color col)
 	if (!strcmp(type, "circle"))
 		ellipse(a, a, col);
 	if (!strcmp(type, "parabola"))
-		quadratic_y(1 / 4 * a, 0, 0, col);
+		quadratic_y(1 / (float) (4 * a), 0, 0, col);
 	// trignometric
 	if (!strcmp(type, "sine"))
 		draw_sine(a, b, c, col);
