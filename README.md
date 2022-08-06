@@ -1,9 +1,18 @@
-# Project Under Development 👨🏿‍💻
 
 # Grapher-C
 
-A 2d graph plotter in c
+A 2d graph plotter in c made by the students of IOE Pulchowk Campus Computer Enginnering Students as a project for first semester.
 
+## Contributors
+```
+Krishant Timilsina   (078BCT045)
+Bishal Panta         (078BCT036)
+Prabin Adhikari      (078BCT058)
+Apil Chaudary        (078BCT)
+```
+
+## Screenshot
+![](res/screen.png)
 
 ## 🔨 Build
 
@@ -21,12 +30,19 @@ Clone the repository
 $ git clone https://github.com/krishtimil/grapher-c.git
 ```
 
+
 Change the working directory to the newly cloned repository:
 
 ```bash
 $ cd grapher-c
 ```
+### For Windows
+Run the powershell script
+```
+./run.ps1
+```
 
+### For Linux/macOS
 Run xmake to install the dependencies & build the project:
 
 ```bash
@@ -50,3 +66,5 @@ Run the project after it has been built:
 ```bash
 $ xmake run
 ```
+
+You need to move the `res` folder to directory with the executable for proper functionality.

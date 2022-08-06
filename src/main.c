@@ -54,7 +54,7 @@ int main(void)
 		}
 		
 		draw_buttons();
-		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
+		//DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
 		EndDrawing();
 	}
 
