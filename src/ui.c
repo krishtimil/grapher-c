@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <string.h>
+#include <time.h>
 
 // TODO: SlideListView
 // custom header
@@ -87,7 +88,10 @@ int draw_sections()
 		}
 	}
 	if (GuiButton((Rectangle) { 360, 560, 30, 30 }, "#104#")) {
-
+		time_t t;
+		time(&t);
+		int ti = t;
+		TakeScreenshot(TextFormat("screenshots/Grapher_%d.jpg", ti));
 	}
 }
 
