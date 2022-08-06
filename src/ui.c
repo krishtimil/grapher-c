@@ -61,7 +61,6 @@ bool added = false;
 int current_category = 0;
 int current_type = 0;
 
-
 bool editMode = true;
 
 int init_window()
@@ -69,9 +68,10 @@ int init_window()
 	const int screenWidth = 900;
 	const int screenHeight = 600;
 	InitWindow(screenWidth, screenHeight, "Grapher-C");
+	InitAudioDevice();
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
-	/*Font font = LoadFontEx("res/Monospace.otf", 32, 0, 250);
-	GuiSetFont(font);*/
+	Font font_main = LoadFontEx("res/code.otf", 15, 0, 250);
+	GuiSetFont(font_main);
 }
 
 int draw_sections()
@@ -91,7 +91,9 @@ int draw_sections()
 		time_t t;
 		time(&t);
 		int ti = t;
-		TakeScreenshot(TextFormat("screenshots/Grapher_%d.jpg", ti));
+		TakeScreenshot(TextFormat("screenshots/Grapher_%d.bmp", ti));
+		Sound fx = LoadSound("res/screen.wav");
+		PlaySound(fx);
 	}
 }
 
@@ -160,6 +162,11 @@ int box_eq(int i)
 	DrawRectangleLines(50, 5 + 120 * i, 235, 40, BLACK);
 	DrawText(labelBuilder(label,a,b,c,d), 50 + 10,10 +120*i, 25, color);
 }
+
+int clean_up() {
+	CloseAudioDevice();
+	CloseWindow();
+};
 
 
 char *labelBuilder(char *label, float a, float b, float c, float d){

@@ -48,11 +48,10 @@ int main(void)
 		}
 		
 		DrawFPS(GetScreenWidth() - 100, 10); // Displays FPS on Screen
-
 		EndDrawing();
 	}
 
-	CloseWindow(); // Close window and OpenGL context
+	clean_up(); // Close window
 
 	return 0;
 }
