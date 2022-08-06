@@ -30,4 +30,5 @@ typedef struct Window
 
 
 extern Window windows[4];
+extern int num_eq;
 #endif

@@ -79,6 +79,16 @@ int draw_sections()
 	DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
 	DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
 	draw_graph();
+	DrawRectangle(300, 550, 100, 50 , LIGHTGRAY);
+	if (GuiButton((Rectangle) {310,560,30,30}, "#113#")) {
+		for (int i = 0; i < 5; i++) {
+			//equation_arr[i] = {{"\0", 0, {0}}, false, BLANK};
+			num_eq = 0;
+		}
+	}
+	if (GuiButton((Rectangle) { 360, 560, 30, 30 }, "#104#")) {
+
+	}
 }
 
 int draw_boxes() {
@@ -109,6 +119,7 @@ int window_add()
 			Color colors[] = { RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
 			equation_arr[num_eq].color = colors[(GetRandomValue(0, 7))];
 			equation_arr[num_eq].type = windows[current_category].types[current_type];
+			equation_arr[num_eq].show = true;
 			//equation_arr[num_eq].type.value = {0,0,0,0};
 			for(int i=0; i< 4; i++)
 				equation_arr[num_eq].type.value[i] = GetRandomValue(-10, 10);
@@ -178,11 +189,17 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 	}
 	
 
-	// if (!strcmp(label, "quadratic_y"))
+	if (!strcmp(label, "quadratic_y")) {
+		return (char *)TextFormat("x=%.1fy^2 + %.1fy + %.1f", a, b, c);
+	}
 
-	// if (!strcmp(label, "cubic_x"))
+	if (!strcmp(label, "cubic_x")) {
+		return (char *)TextFormat("y=%.1fx^3 + %.1fx^2 + %.1fx + %.1f", a, b, c, d);
+	}
 
-	// if (!strcmp(label, "cubic_y"))
+	if (!strcmp(label, "cubic_y")) {
+		return	(char *)TextFormat("x=%.1fy^3 + %.1fy^2 + %.1fy + %.1f", a, b, c, d);
+	}
 
 	// // Conic Section
 	// if (!strcmp(label, "hyperbola"))
@@ -201,9 +218,9 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 	// // exponential
 	// if (!strcmp(label, "log_a_x"))
 
-	// if(!strcmp(label, "a_x"))
+	// if (!strcmp(label, "a_x"))
 
-	// if(!strcmp(label, "e_ax"))
+	// if (!strcmp(label, "e_ax"))
 
 }
 

@@ -33,8 +33,7 @@ int main(void)
 		window_add();
 		
 		//code for input sliders
-		for (int i = 0; i < 5; i++) {
-			if (equation_arr[i].show) {
+		for (int i = 0; i < num_eq; i++) {
 				GuiGroupBox((Rectangle) { 15, 55 + 120 * i, 270, 60 }, "Variables");
 				for (int j = 0; j < equation_arr[i].type.var_num; j++) {
 					float xcor = (j % 2 == 0) ? 30 : 160;
@@ -45,7 +44,6 @@ int main(void)
 						ycor += 65;
 					DrawText(vars[j], xcor, ycor, 20, GRAY);
 					equation_arr[i].type.value[j] = GuiSlider((Rectangle) { xcor + 40, ycor, 60, 20 }, "-10", "10", equation_arr[i].type.value[j], -10, 10);
-				}
 			}
 		}
 		
