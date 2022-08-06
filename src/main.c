@@ -23,11 +23,15 @@ int main(void)
 	while (!WindowShouldClose()) // Detect window close button or ESC key
 	{
 		BeginDrawing();
+		ClearBackground(RAYWHITE);
 
+		// initialize euqations box num_eq times
+		draw_graphs();
 		// Draws sections of main window
 		draw_sections();
-		// initialize euqations box num_eq times
+		// Draws equations box
 		draw_boxes();
+
 
 		//custom functions to draw window
 		window_add();

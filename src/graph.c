@@ -21,7 +21,7 @@ void draw_tan(float a, float b, float c, Color col);
 void draw_log(float a, Color col);
 void draw_exp(float a, Color col);
 
-int draw_graph()
+int draw_axis()
 {
 	int centerX = GetScreenWidth() - GetScreenHeight() / 2;
 	int centerY = GetScreenHeight() / 2;

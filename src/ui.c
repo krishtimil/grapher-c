@@ -62,6 +62,9 @@ int current_category = 0;
 int current_type = 0;
 
 bool editMode = true;
+Font font_label; 
+Font font_main;
+Sound fx;
 
 int init_window()
 {
@@ -69,17 +72,20 @@ int init_window()
 	const int screenHeight = 600;
 	InitWindow(screenWidth, screenHeight, "Grapher-C");
 	InitAudioDevice();
+	
+	Image icon = LoadImage("res/icon.png");
+	SetWindowIcon(icon);
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor())); // Set our game to run at max refresh rate of monitor
-	Font font_main = LoadFontEx("res/code.otf", 15, 0, 250);
+	font_main = LoadFontEx("res/code.otf", 15, 0, 250);
+	font_label = LoadFontEx("res/cmunssdc.ttf", 30, 0, 250);
 	GuiSetFont(font_main);
 }
 
 int draw_sections()
 {
-	ClearBackground(RAYWHITE);
 	DrawLine(GetScreenWidth() - GetScreenHeight(), 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));
 	DrawRectangle(0, 0, GetScreenWidth() - 600, GetScreenHeight(), Fade(LIGHTGRAY, 0.3f));
-	draw_graph();
+	draw_axis();
 	DrawRectangle(300, 550, 100, 50 , LIGHTGRAY);
 	if (GuiButton((Rectangle) {310,560,30,30}, "#113#")) {
 		for (int i = 0; i < 5; i++) {
@@ -91,8 +97,9 @@ int draw_sections()
 		time_t t;
 		time(&t);
 		int ti = t;
-		TakeScreenshot(TextFormat("screenshots/Grapher_%d.bmp", ti));
-		Sound fx = LoadSound("res/screen.wav");
+		system("mkdir screenshots");
+		TakeScreenshot(TextFormat("screenshots/Grapher_%d.png", ti));
+		fx = LoadSound("res/screen.wav");
 		PlaySound(fx);
 	}
 }
@@ -101,6 +108,12 @@ int draw_boxes() {
 	for (int i = 0; i < num_eq; i++)
 		box_eq(i);
 }
+
+int draw_graphs() {
+	for (int i = 0; i < num_eq; i++)
+		draw_graph(i);
+}
+
 
 int window_add()
 {
@@ -122,8 +135,8 @@ int window_add()
 		added = GuiButton((Rectangle) { 495, 300, 190, 45 }, "Add");
 		if (added) {
 			window_Active = false;
-			Color colors[] = { RED, YELLOW, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
-			equation_arr[num_eq].color = colors[(GetRandomValue(0, 7))];
+			Color colors[] = { RED, PURPLE, MAGENTA, DARKGREEN, DARKPURPLE ,BROWN, BEIGE };
+			equation_arr[num_eq].color = colors[(GetRandomValue(0, 6))];
 			equation_arr[num_eq].type = windows[current_category].types[current_type];
 			equation_arr[num_eq].show = true;
 			//equation_arr[num_eq].type.value = {0,0,0,0};
@@ -150,20 +163,42 @@ int box_eq(int i)
 	Color color = equation_arr[i].color;
 
 
-	if (showEq)
-	{
-		show_eq(label, a,b,c,d, equation_arr[i].color);
-		DrawRectangle(0, 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));	//sliders(i);
-	}
-
 	// Draw GUI controls
 	//------------------------------------------------------------------------------
 	equation_arr[i].show = GuiCheckBox((Rectangle) { 15, 15 + 120*i, 20, 20 }, "\0", equation_arr[i].show);
 	DrawRectangleLines(50, 5 + 120 * i, 235, 40, BLACK);
-	DrawText(labelBuilder(label,a,b,c,d), 50 + 10,10 +120*i, 25, color);
+	//DrawText(labelBuilder(label,a,b,c,d), 50 + 10,10 +120*i, 25, color);
+	if(!strcmp(label, "cubic_x") || !strcmp(label, "cubic_y"))
+		DrawTextEx(font_label, labelBuilder(label, a, b, c, d), (Vector2) { 45 + 10, 15 + 120 * i }, 19, 1, color);
+	else
+		DrawTextEx(font_label, labelBuilder(label, a, b, c, d), (Vector2) { 50 + 10, 12 + 120 * i }, 25, 1, color);
+}
+
+int draw_graph(int i)
+{
+	bool showEq = equation_arr[i].show;
+
+
+	char label[80];
+	strcpy(label, equation_arr[i].type.label);
+	int a = equation_arr[i].type.value[0];
+	int b = equation_arr[i].type.value[1];
+	int c = equation_arr[i].type.value[2];
+	int d = equation_arr[i].type.value[3];
+	Color color = equation_arr[i].color;
+
+
+	if (showEq)
+	{
+		show_eq(label, a, b, c, d,color);
+		//DrawRectangle(0, 0, GetScreenWidth() - GetScreenHeight(), GetScreenHeight(), Fade(LIGHTGRAY, 0.6f));	//sliders(i);
+	}
 }
 
 int clean_up() {
+	UnloadFont(font_label);
+	UnloadFont(font_main);
+	UnloadSound(fx);
 	CloseAudioDevice();
 	CloseWindow();
 };
@@ -232,7 +267,7 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 	// if (!strcmp(label, "a_x"))
 
 	// if (!strcmp(label, "e_ax"))
-
+	return label;
 }
 
 

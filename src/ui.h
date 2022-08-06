@@ -3,6 +3,7 @@
 
 int init_window();
 int draw_sections();
+int draw_graphs();
 int draw_boxes();
 int window_add();
 int box_eq(int i);
