@@ -162,10 +162,10 @@ int box_eq(int i)
 
 	char label[80];
 	strcpy(label,equation_arr[i].type.label);
-	int a = equation_arr[i].type.value[0];
-	int b = equation_arr[i].type.value[1];
-	int c = equation_arr[i].type.value[2];
-	int d = equation_arr[i].type.value[3];
+	float a = equation_arr[i].type.value[0];
+	float b = equation_arr[i].type.value[1];
+	float c = equation_arr[i].type.value[2];
+	float d = equation_arr[i].type.value[3];
 	Color color = equation_arr[i].color;
 
 
@@ -187,10 +187,10 @@ int draw_graph(int i)
 
 	char label[80];
 	strcpy(label, equation_arr[i].type.label);
-	int a = equation_arr[i].type.value[0];
-	int b = equation_arr[i].type.value[1];
-	int c = equation_arr[i].type.value[2];
-	int d = equation_arr[i].type.value[3];
+	float a = equation_arr[i].type.value[0];
+	float b = equation_arr[i].type.value[1];
+	float c = equation_arr[i].type.value[2];
+	float d = equation_arr[i].type.value[3];
 	Color color = equation_arr[i].color;
 
 
@@ -213,27 +213,12 @@ int clean_up() {
 
 char *labelBuilder(char *label, float a, float b, float c, float d){
 	//polynomial
-	/*if (!strcmp(label, "linear")) {
-		char *formatted = a!=0?(b>0?(char *)TextFormat("y=%.1fx + %.1fc", a, b):(b<0?(char *)TextFormat("y=%.1fx - %.1fc", a, -1*b):TextFormat("y=%.1fx",a))):(b>0?(char *)TextFormat("y=%.1fc", b):(b<0?(char *)TextFormat("y= - %.1fc", -1*b):TextFormat("y=0")));
-		return formatted;
-		
-	}*/
 	if (!strcmp(label, "linear")) {
-		if (!a) {
-			if (!b)
-				return (char *) TextFormat("y=0");
-			else
-				return (char *) TextFormat("y=%0.1f", b);
-		}
-		else {
-			if (!b)
-				return (char *) TextFormat("y=%.1fx", a);
-			else
-				if (b > 0)
-					return (char *) TextFormat("y=%.1fx + %.1f", a, b);
-				else
-					return (char *)TextFormat("y=%.1fx - %.1f", a, -b);
-		}
+		if(!a&&!b) return (char*) TextFormat("y=0");
+		if(!b) return (char*) TextFormat("y=%.1f",a);
+		if(!a) return (char *)TextFormat("y=%.1f",b);
+		if (b > 0) return (char *) TextFormat("y=%.1fx + %.1f", a, b);
+		else return (char *)TextFormat("y=%.1fx - %.1f", a, -b);
 	}
 
 
@@ -436,7 +421,7 @@ char *labelBuilder(char *label, float a, float b, float c, float d){
 		return (char *) TextFormat("y^2=%.1fx", 4*a);
 	}
 
-	// // trignometric
+	// trignometric
 	if (!strcmp(label, "sin")){
 		if(!a) return (char *)TextFormat("y=0");
 		else if(!b) return (char *)TextFormat("y=%.1fsin(%.1f)",a,c);

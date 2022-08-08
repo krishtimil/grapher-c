@@ -44,7 +44,7 @@ int draw_axis()
 	DrawText("O", centerX, centerY, 2.0f, MAROON);
 }
 
-int show_eq(char* type, int a, int b, int c, int d, Color col)
+int show_eq(char* type, float a, float b, float c, float d, Color col)
 {
 	// type = tolower(type);
 	floor(rand() * 10);
