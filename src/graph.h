@@ -3,6 +3,6 @@
 #include "raylib.h"
 
 int draw_axis();
-int show_eq(char *type, int a, int b, int c, int d, Color col);
+int show_eq(char *type, float a, float b, float c, float d, Color col);
 
 #endif
