@@ -1,7 +1,7 @@
 
 # Grapher-C
 
-A 2d graph plotter in c made by the students of IOE Pulchowk Campus Computer Enginnering Students as a project for first semester.
+A 2d graph plotter in c made by the Computer Engineering Students of IOE Pulchowk Campus as a project for first semester.
 
 ## Contributors
 ```
@@ -13,6 +13,11 @@ Apil Chaudary        (078BCT017)
 
 ## Screenshot
 ![](res/screen.png)
+
+## Documentations
+- [Project Report](docs/report.pdf)
+- [Presentation Slides](docs/presentation.pdf)
+
 
 ## 🔨 Build
 
