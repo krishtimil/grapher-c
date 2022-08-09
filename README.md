@@ -14,7 +14,7 @@ Apil Chaudary        (078BCT017)
 ## Screenshot
 ![](res/screen.png)
 
-## Documentations
+## 📃 Documentations
 - [Project Report](docs/report.pdf)
 - [Presentation Slides](docs/presentation.pdf)
 
