@@ -7,6 +7,7 @@
 #include "ui.h"
 #include "graph.h"
 #include "structures.h"
+#include "raygui.h" // Required for GUI controls
 
 Window windows[4] = {
 	{"Polynomial", 5, {
