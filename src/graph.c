@@ -47,7 +47,6 @@ int draw_axis()
 int show_eq(char* type, float a, float b, float c, float d, Color col)
 {
 	// type = tolower(type);
-	floor(rand() * 10);
 	//polynomial
 	if (!strcmp(type, "linear"))
 		linear(a, b, col);
