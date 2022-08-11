@@ -7,6 +7,7 @@
 #include "ui.h"
 #include "graph.h"
 #include "structures.h"
+#include "raygui.h" // Required for GUI controls
 
 Window windows[4] = {
 	{"Polynomial", 5, {
@@ -100,13 +101,13 @@ int draw_buttons() {
 		time_t t;
 		time(&t);
 		int ti = t;
-		system("mkdir screenshots");
+		/* system("mkdir screenshots"); */
 		TakeScreenshot("screenshots/tmp.png");
 		Image uncropped = LoadImage("screenshots/tmp.png");
 		ImageCrop(&uncropped, (Rectangle) {300,0,600,600});
 		ExportImage(uncropped, TextFormat("screenshots/Grapher_%d.png", ti));
 		fx = LoadSound("res/screen.wav");
-		system("cd screenshots && del tmp.png");
+		/* system("cd screenshots && del tmp.png"); */
 		PlaySound(fx);
 	}
 }
